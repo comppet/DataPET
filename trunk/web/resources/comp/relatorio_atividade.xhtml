@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Relatório de atividades</title>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="list" required="true" />
+            <composite:attribute name="tipo" required="true" />
+        </composite:interface>
+        <composite:implementation>
+            <ui:repeat value="#{cc.attrs.list}" var="a">
+                <table border="1" class="tabela" cellpadding="0" cellspacing="0" width="100%">
+                    <!-- Tipo e natureza -->
+                    <tr><td>
+                        Natureza da atividade realizada<br />
+                        <span class="descricao">Especificar o tipo da atividade desenvolvida: seminário, palestra, curso, oficina...</span><br />
+                        <h:outputText value="Pesquisa" rendered="#{cc.attrs.tipo eq 'pesquisa'}" />
+                        <h:outputText value="Ensino" rendered="#{cc.attrs.tipo eq 'ensino'}" />
+                        <h:outputText value="Extensão" rendered="#{cc.attrs.tipo eq 'extensao'}" />
+                        <h:outputText value=": #{a.natureza}" rendered="#{not (cc.attrs.tipo eq 'pesquisa')}" />
+                    </td></tr>
+
+                    <!-- Título -->
+                    <tr><td>
+                        Tema: <h:outputText value="#{a.titulo}" />
+                    </td></tr>
+
+                    <!-- Data -->
+                    <tr><td>
+                        Cronograma de Execução da Atividade:<br />
+                        <span class="descricao">Marque com X os meses de execução da atividade até a elaboração deste relatório</span>
+                        <table border="0" cellpadding="0" cellspacing="0" class="tabela_mes" width="100%">
+                            <tr style="border:none">
+                                <td class="coluna_mes">JAN <h:outputText value="X" rendered="#{a.janeiro}" /></td>
+                                <td class="coluna_mes">FEV <h:outputText value="X" rendered="#{a.fevereiro}" /></td>
+                                <td class="coluna_mes">MAR <h:outputText value="X" rendered="#{a.marco}" /></td>
+                                <td class="coluna_mes">ABR <h:outputText value="X" rendered="#{a.abril}" /></td>
+                                <td class="coluna_mes">MAI <h:outputText value="X" rendered="#{a.maio}" /></td>
+                                <td class="coluna_mes">JUN <h:outputText value="X" rendered="#{a.junho}" /></td>
+                                <td class="coluna_mes">JUL <h:outputText value="X" rendered="#{a.julho}" /></td>
+                                <td class="coluna_mes">AGO <h:outputText value="X" rendered="#{a.agosto}" /></td>
+                                <td class="coluna_mes">SET <h:outputText value="X" rendered="#{a.setembro}" /></td>
+                                <td class="coluna_mes">OUT <h:outputText value="X" rendered="#{a.outubro}" /></td>
+                                <td class="coluna_mes">NOV <h:outputText value="X" rendered="#{a.novembro}" /></td>
+                                <td style="border:none">DEZ <h:outputText value="X" rendered="#{a.dezembro}" /></td>                                        
+                            </tr>
+                        </table>
+                    </td></tr>
+
+                    <!-- Público alvo -->
+                    <h:panelGroup rendered="#{not (cc.attrs.tipo eq 'pesquisa')}">
+                        <tr><td>
+                            Público alvo:<br />
+                            <span class="descricao">
+                                Informe se a atividade foi destinada ao próprio grupo, à comunidade acadêmica em geral ou à comunidade externa à IES.<br />
+                            </span>
+                            <h:outputText value="#{a.publicoAlvo}" rendered="#{not (empty a.publicoAlvo)}" />
+                            <h:outputText value="---" rendered="#{empty a.publicoAlvo}" />
+                        </td></tr>
+                    </h:panelGroup>
+
+                    <!-- Descrição -->
+                    <tr><td>
+                        Descrição da atividade:<br />
+                        <span class="descricao">
+                            Descreva de forma sucinta em que consistiu/consiste a atividade, citando o tipo de participação dos alunos/grupo: assistindo
+                            ou realizando pessoalmente a atividade.<br />
+                        </span>
+                        <h:outputText value="#{a.descricao}" />
+                    </td></tr>
+
+                    <!-- Alunos responsáveis -->
+                    <tr><td>
+                        Promotores da atividade:<br />
+                        <span class="descricao">
+                            Especificar se a atividade foi promovida pelo grupo, pela IES ou por outros.<br />
+                        </span>
+                        <h:panelGroup rendered="#{not (empty a.responsaveis)}">
+                            <ui:repeat value="#{a.responsaveis}" var="aluno" varStatus="status">
+                                <h:outputText value="#{aluno.nome}" />
+                                <h:outputText value=", " rendered="#{not status.last}" />
+                                <h:outputText value="." rendered="#{status.last}" />
+                            </ui:repeat>
+                        </h:panelGroup>
+                        <h:outputText value="---" rendered="#{empty a.responsaveis}" />
+                    </td></tr>
+
+                    <!-- Parceiros -->
+                    <tr><td>
+                        Parceiros ou colaboradores da atividade:<br />
+                        <h:outputText value="#{a.parceiros}" rendered="#{not (empty a.parceiros)}" />
+                        <h:outputText value="---" rendered="#{empty a.parceiros}" />
+                    </td></tr>
+
+                    <!-- Justificativa -->
+                    <tr><td>
+                        Justificativa para a realização da atividade:<br />
+                        <span class="descricao">
+                            Na justificativa, responda às seguintes perguntas:<br />
+                            * Esta atividade estava prevista no Planejamento de Atividades do grupo?<br />
+                            * Por que tomou a iniciativa de realizar a atividade?<br />
+                            * Qual a contribuição da atividade para o desenvolvimento de novas práticas e experiências pedagógicas no curso em que o
+                            grupo está inserido?<br />
+                            * Quais os benefícios acadêmicos/ culturais/ sociais da atividade para o grupo/ IES/ comunidade envolvida, etc.<br />
+                        </span>
+                        <h:outputText value="#{a.descricao}" />
+                    </td></tr>
+
+                    <!-- Resultados esperados -->
+                    <tr><td>
+                        Resultados esperados com a atividade:<br />
+                        <h:outputText value="#{a.resultadosEsperados}" />
+                    </td></tr>
+
+                    <!-- Resultados alcançados -->
+                    <tr><td>
+                        Resultados alcançados com a atividade:<br />
+                        <h:outputText value="#{a.resultadosAlcancados}" rendered="#{not (empty a.resultadosAlcancados)}" />
+                        <h:outputText value="---" rendered="#{empty a.resultadosAlcancados}" />
+                    </td></tr>
+
+                    <!-- Comentário -->
+                    <tr><td>
+                        Comentário Geral:<br />
+                        <span class="descricao">
+                            Utilize este espaço para:<br />
+                            * Relatar as circunstâncias que favoreceram ou dificultaram a execução da atividade;<br />
+                            * Mencionar outros aspectos que julgar pertinente.<br />
+                        </span>
+                        <h:outputText value="#{a.comentario}" rendered="#{not (empty a.comentario)}" />
+                        <h:outputText value="---" rendered="#{empty a.comentario}" />
+                    </td></tr>
+                </table>
+            </ui:repeat>
+        </composite:implementation>
+    </h:body>
+</html>

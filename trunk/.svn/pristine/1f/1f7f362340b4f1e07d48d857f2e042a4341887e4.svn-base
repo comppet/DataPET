@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <ui:composition>
+            <img src="imgs_layout/titulo_administracao.gif" alt="Ola administrador"  class="titulo_painel" />
+            <div class="opcao"><img src="imgs_layout/item.gif" width="7" height="7" alt="item" class="item_figura" /><a href="administrador.xhtml">Início</a></div>
+            <div class="opcao"><img src="imgs_layout/item.gif" width="7" height="7" alt="item" class="item_figura" /><a href="alterar_senha.xhtml">Alterar senha</a></div>
+            <div class="opcao"><img src="imgs_layout/item.gif" width="7" height="7" alt="item" class="item_figura" /><a href="instituicao.xhtml">Gerenciar DataPET</a></div>
+            <h:form>
+                <div class="opcao">
+                    <img src="imgs_layout/item.gif" width="7" height="7" alt="item" class="item_figura" />
+                    <!-- o parâmetro "style" na tag abaixo serve para consertar um espaço que o JSF coloca antes de "Sair" sem ninguém ter pedido... --> 
+                    <h:commandLink value="Sair" action="#{LoginController.logout}" style="margin-left:-4px" />
+                </div>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

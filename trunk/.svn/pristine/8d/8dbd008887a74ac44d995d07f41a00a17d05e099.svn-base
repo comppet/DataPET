@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Formulario de email</title>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="widgetVar" required="false" />
+            <composite:attribute name="bar" type="java.lang.Boolean" required="false" default="#{false}" />
+            <composite:attribute name="titulo" required="#{false}" default="Carregando..." />
+            <composite:attribute name="ajaxListener" type="java.lang.Boolean" required="false" default="#{false}" />
+            <composite:attribute name="rendered" required="#{false}" default="#{true}" />
+        </composite:interface>
+        <composite:implementation>
+            <h:panelGroup rendered="#{cc.attrs.rendered}">
+                <p:ajaxStatus onstart="#{cc.attrs.widgetVar}.show();" onsuccess="#{cc.attrs.widgetVar}.hide();"
+                              rendered="#{cc.attrs.ajaxListener and cc.attrs.bar}"/>
+
+                <p:ajaxStatus style="width:16px;height:16px;" rendered="#{cc.attrs.ajaxListener and not cc.attrs.bar}">
+                    <f:facet name="start">
+                        <h:graphicImage value="imgs_layout/ajaxloading.gif" />
+                    </f:facet>
+
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
+
+                <p:dialog modal="true" widgetVar="#{cc.attrs.widgetVar}" header="#{cc.attrs.titulo}"
+                          draggable="false" closable="false" rendered="#{cc.attrs.bar}" resizable="false">
+                    <div style="text-align: center">
+                        <p:graphicImage alt="carregando" value="imgs_layout/ajaxloadingbar.gif" />
+                    </div>
+                </p:dialog>
+
+                <h:graphicImage value="imgs_layout/ajaxloading.gif" width="16" height="16"
+                                rendered="#{not cc.attrs.bar and not cc.attrs.ajaxListener}" />
+            </h:panelGroup>
+        </composite:implementation>
+    </h:body>
+</html>

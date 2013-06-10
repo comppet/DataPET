@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "Atividades de pesquisa" -->
+            <ui:param name="titulo" value="Atividades de pesquisa" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_pesquisa.gif" width="65" height="60" alt="" class="titulo_img" />
+                    <h1>Atividades de pesquisa</h1>
+                    <span>Gerencie as atividades de pesquisa de seu grupo</span>
+                </div>
+                <h:form prependId="false">
+                    <div class="inserir"><a href="pesquisa_insercao.xhtml">Inserir nova atividade de pesquisa</a></div>
+                    <p style="margin-bottom: 30px;">
+                        <h:outputText value="Abaixo encontra-se a lista de pesquisas deste grupo PET. Utilize a tabela para visualizar, editar ou excluir as atividades do grupo." rendered="#{not empty PesquisaController.atividades}" />
+                        <h:outputText value="Ainda não há atividades de pesquisa cadastradas no período selecionado. Utilize os campos abaixo para mudar o período ou adicione uma nova atividade através do link acima." rendered="#{empty PesquisaController.atividades}" />
+                    </p>
+                    <comp:listar_atividades2 managedBean="#{PesquisaController}" />
+                
+                
+                <br></br>
+                <br></br>
+                <p style="margin-bottom: 50px; margin-top: 20px" align="center">
+                <p:commandButton value="Voltar" action="atividades" ajax="false"/>
+                </p>
+                
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

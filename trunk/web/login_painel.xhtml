@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <script type="text/javascript" src="javascript/basico.js"></script>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <img src="imgs_layout/titulo_login.gif" alt="Ola tutor" width="67" height="20" class="titulo_painel" />
+            <h:form>
+                <div style="margin-top: 28px">
+                    <span class="texto_verde">Instituição:</span><br />
+
+                    <h:selectOneMenu styleClass="input form_login" value="#{LoginController.idInstituicao}">
+                        <f:selectItem itemLabel="Selecione uma instituição" itemValue="0" noSelectionOption="true" />
+                        <f:selectItems value="#{LoginController.instituicoes}" />
+                        <p:ajax update="grupos usuarios submit" listener="#{LoginController.atualizarGrupos}" />
+                    </h:selectOneMenu>
+                </div>
+
+                <h:panelGroup id="grupos">
+                    <h:panelGroup layout="block" style="margin-top: 20px" rendered="#{LoginController.idInstituicao gt 0}">
+                        <span class="texto_verde">Grupo/ CLA:</span><br />
+                        <h:selectOneMenu  styleClass="input form_login" value="#{LoginController.idGrupo}">
+                            <f:selectItem itemLabel="Selecione um grupo" itemValue="0" noSelectionOption="true" />
+                            <f:selectItem itemLabel="CLA" itemValue="-1" />
+                            <f:selectItems value="#{LoginController.grupos}" />
+                            <p:ajax update="usuarios clas submit" listener="#{LoginController.atualizarUsuarios}" />
+                        </h:selectOneMenu>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+                <h:panelGroup id="usuarios">
+                    <h:panelGroup layout="block" style="margin-top: 20px"
+                                  rendered="#{(LoginController.idGrupo gt 0) and (LoginController.idInstituicao gt 0)}">
+                        <span class="texto_verde">Petiano:</span><br />
+                        <h:selectOneMenu styleClass="input form_login" value="#{LoginController.idUsuario}">
+                            <f:selectItem itemLabel="Selecione um petiano" itemValue="0" noSelectionOption="true" />
+                            <f:selectItems value="#{LoginController.usuarios}" />
+                            <p:ajax update="submit" listener="#{LoginController.validaSenha}" />
+                        </h:selectOneMenu>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+                <h:panelGroup id="clas">
+                    <h:panelGroup layout="block" style="margin-top: 20px"
+                                  rendered="#{(LoginController.idGrupo eq -1)}">
+                        <span class="texto_verde">Membros do CLA:</span><br />
+                        <h:selectOneMenu styleClass="input form_login" value="#{LoginController.idUsuario}">
+                            <f:selectItem itemLabel="Selecione um usuário" itemValue="0" noSelectionOption="true" />
+                            <f:selectItems value="#{LoginController.clas}" />
+                            <p:ajax update="submit" listener="#{LoginController.validaSenha}" />
+                        </h:selectOneMenu>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+                <h:panelGroup id="submit">
+                    <h:panelGroup layout="block" style="margin-top: 20px"
+                                  rendered="#{((LoginController.idUsuario gt 0))
+                                              and (not (LoginController.idGrupo eq 0)) and (LoginController.idInstituicao gt 0)}">
+
+                        <!-- Campo de senha -->
+                        <h:panelGroup rendered="#{not LoginController.senhaInvalida}">
+                            <span class="texto_verde">Senha:</span><br />
+                            <h:inputSecret styleClass="input form_login" value="#{LoginController.senha}" />
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{LoginController.senhaInvalida}">
+                            <span class="texto_verde" style="color:red">Senha:</span><br />
+                            <h:inputSecret styleClass="input form_login" value="#{LoginController.senha}"
+                                           style="border-color:red" />
+                        </h:panelGroup>
+
+                        <p:commandButton action="#{LoginController.login}" update="submit growl" value="Entrar" style="margin-top: 20px"   />
+                        <div style="margin-top: 15px">
+                            <h:commandLink action="esqueceu_senha?faces-redirect=true" value="Esqueceu sua senha?"/>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+                <img src="imgs_layout/titulo_administracao.gif" alt="Administração" width="134" height="20"
+                     class="titulo_painel" style="cursor:pointer; margin-top:35px" border="0"
+                     onClick="toogleVisibility('login_adm')" />
+
+                <div id="login_adm" style="visibility:hidden; margin-top: 28px">
+                    <!-- Campo de senha -->
+                    <h:panelGroup id="senha_adm">
+                        <h:panelGroup rendered="#{not LoginController.senhaInvalida}">
+                            <span class="texto_verde">Senha:</span><br />
+                            <h:inputSecret styleClass="input form_login" value="#{LoginController.senha}" />
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{LoginController.senhaInvalida}">
+                            <span class="texto_verde" style="color:red">Senha:</span><br />
+                            <h:inputSecret styleClass="input form_login" value="#{LoginController.senha}"
+                                           style="border-color:red" />
+                        </h:panelGroup>
+                    </h:panelGroup>
+
+                    <p:commandButton action="#{LoginController.login}" value="Entrar" style="margin-top: 15px" update="senha_adm growl">
+                        <f:setPropertyActionListener value="1" target="#{LoginController.idUsuario}" />
+                    </p:commandButton>
+                </div>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

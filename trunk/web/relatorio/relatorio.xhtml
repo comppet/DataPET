@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp">
+    <h:head>
+        <title>DataPET - relatório</title>
+        <link href="css.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body onload="window.print();">
+        <div>
+            <br></br>
+            <br></br>
+            <div style="text-align:center">
+                <img src="republica.jpg"></img>
+                
+                <h1>MINISTÉRIO DA EDUCAÇÃO - MEC</h1>
+                <h1>SECRETARIA DE EDUCAÇÃO SUPERIOR - SESU</h1>
+                <h1>DEPARTAMENTO DE MODERNIZAÇÃO E PROGRAMAS DA EDUCAÇÃO SUPERIOR - DEPEM</h1>
+                
+                <img src="pet.jpg" style="margin-top:10px; margin-bottom: 10px"></img>
+                <h1>PROGRAMA DE EDUCAÇÃO TUTORIAL</h1>
+
+                <h1 style="margin-top:50px">Relatório Anual de Atividades - <h:outputText value="#{RelatorioController.inst.dataInicioRelatorio}">
+                        <f:convertDateTime pattern="yyyy" locale="pt,BR" />
+                    </h:outputText>
+                </h1>
+            
+                <p class="td">
+                    (<h:outputText value="#{RelatorioController.inst.dataInicioRelatorio}">
+                        <f:convertDateTime dateStyle="long" locale="pt,BR" />
+                    </h:outputText> a
+                    <h:outputText value="#{RelatorioController.inst.dataFimRelatorio}">
+                        <f:convertDateTime dateStyle="long" locale="pt,BR" />
+                    </h:outputText>) 
+                </p>
+            </div>
+
+            <h2>1. DADOS INSTITUCIONAIS</h2>
+            <h3>1.1 Instituição de Ensino Superior: <h:outputText value="#{RelatorioController.inst.nome}" /></h3>
+            <h3>1.2 Grupo:  <h:outputText value="#{RelatorioController.grupo.sigla}" /></h3>
+            <h3>1.3 Home Page do Grupo: <h:outputText value="#{RelatorioController.grupo.site}" /></h3>
+            <h3>
+                1.4 Data da criação do Grupo: 
+                <h:outputText value="#{RelatorioController.grupo.implantacao}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:outputText>
+            </h3>
+            <h3>
+                1.5 Tema (somente para os grupos criados a partir dos lotes temáticos):
+                <h:outputText value="#{RelatorioController.grupo.tema}" rendered="#{not (empty RelatorioController.grupo.tema)}" />
+                <h:outputText value="---" rendered="#{empty RelatorioController.grupo.tema}" />
+            </h3>
+            <h3>1.6 Curso de graduação ao qual o grupo está vinculado: <h:outputText value="#{RelatorioController.curso.nome}" /></h3>
+            <h3>1.7 Habilitação oferecida pelo curso de graduação ao qual o grupo está vinculado:</h3>
+
+            <h3 style="margin-left:23px">
+                (<h:outputText value="X" rendered="#{RelatorioController.curso.formacao eq 0}" />) Bacharelado
+                <span style="margin-left:23px">(<h:outputText value="X" rendered="#{RelatorioController.curso.formacao eq 1}" />) Licenciatura</span>
+                <span style="margin-left:23px">(<h:outputText value="X" rendered="#{RelatorioController.curso.formacao eq 2}" />) Licenciatura e Bacharelado</span>
+            </h3>
+            
+            <h3>1.8 Nome do Tutor: <h:outputText value="#{RelatorioController.tutor.nome}" /></h3>
+            <h3>1.9 E-Mail do Tutor: <h:outputText value="#{RelatorioController.login.usuario.email}" /></h3>
+            <h3>1.10 Titulação e área: <h:outputText value="#{RelatorioController.tutor.titulacao}" /></h3>
+            <h3>
+                1.11 Data de ingresso do Tutor: 
+                <h:outputText value="#{RelatorioController.tutor.dataIngressoPet}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:outputText>
+            </h3>
+            <h3>1.12 Interlocutor do PET na IES/ função ou cargo que ocupa na IES: <h:outputText value="#{RelatorioController.cla.interlocutor}" /></h3>
+            <h3>1.13 E-Mail do Interlocutor: <h:outputText value="#{RelatorioController.cla.email}" /></h3>
+            <h3>1.14 Pró-Reitor de Graduação: <h:outputText value="#{RelatorioController.inst.proReitorGrad}" /></h3>
+            <h3>
+                1.15 E-mail do Pró-Reitor de Graduação: 
+                <h:outputText value="#{RelatorioController.inst.emailproReitorGrad}" rendered="#{not (empty RelatorioController.inst.emailproReitorGrad)}" />
+                <h:outputText value="---" rendered="#{empty RelatorioController.inst.emailproReitorGrad}" />
+            </h3>
+
+            <h2>2. INFORMAÇÕES SOBRE OS BOLSISTAS E NÃO BOLSISTAS:</h2>
+            <h3>a) Quadro de identificação:</h3>
+            <span class="descricao">
+                Especificar o mês/ano de ingresso no curso de graduação da IES e no programa PET, o período letivo que está cursando e o coeficiente de
+                rendimento escolar relativo ao último período letivo cursado, conforme quadro abaixo.
+            </span>
+            <h:dataTable styleClass="tabela_aluno" var="alunosBolsistas" value="#{RelatorioController.alunosBolsistas}" style="font-size: 12px" border="1" cellpadding="0"
+                         cellspacing="0" columnClasses="h3" headerClass="h3">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nome dos Bolsistas"/>
+                    </f:facet>
+                    <h:outputText value="#{alunosBolsistas.nome}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Ingresso na IES"/>
+                    </f:facet>
+                    <h:outputText value="#{alunosBolsistas.dataIngressoInst}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Ingresso no PET"/>
+                    </f:facet>
+                    <h:outputText value="#{alunosBolsistas.dataIngressoPet}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Período Letivo Atual"/>
+                    </f:facet>
+                    <h:outputText value="#{alunosBolsistas.periodo}"/>º Período
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Coeficiente Atual de Rendimento Escolar"/>
+                    </f:facet>
+                    <h:outputText value="#{alunosBolsistas.ultimaNota}" rendered="#{not (alunosBolsistas.ultimaNota eq -1)}"/>
+                    <h:outputText value="---" rendered="#{alunosBolsistas.ultimaNota eq -1}"/>
+                </h:column>
+            </h:dataTable>
+            <!-- Falta coeficiente escolar -->
+            <h:dataTable styleClass="tabela_aluno" var="alunosNaoBolsistas" value="#{RelatorioController.alunosNaoBolsistas}" style="font-size: 12px" border="1" columnClasses="h3" headerClass="h3">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nome dos Nao Bolsistas"/>
+                    </f:facet>
+                    <h:outputText value="#{alunosNaoBolsistas.nome}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Ingresso na IES"/>
+                    </f:facet>
+                    <h:outputText value="#{alunosNaoBolsistas.dataIngressoInst}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Ingresso no PET"/>
+                    </f:facet>
+                    <h:outputText value="#{alunosNaoBolsistas.dataIngressoPet}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Período Letivo Atual"/>
+                    </f:facet>
+                    <h:outputText value="#{alunosNaoBolsistas.periodo}"/>º Período
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Coeficiente Atual de Rendimento Escolar"/>
+                    </f:facet>
+                    <h:outputText value="#{alunosNaoBolsistas.ultimaNota}" rendered="#{not (alunosNaoBolsistas.ultimaNota eq -1)}"/>
+                    <h:outputText value="---" rendered="#{alunosNaoBolsistas.ultimaNota eq -1}"/>
+                </h:column>
+            </h:dataTable>
+            
+            <h3>b) Em caso de declínio no rendimento acadêmico do grupo e/ou de um bolsista ou não-bolsista em particular, justifique.</h3>
+
+            <h3>Não houve declínio, de modo geral. Pontualmente, alguns petianos tiveram seus repectivos MGAs diminuídos, mas sem grande
+                significação. Contudo, tive uma conversa com esses para que se mantenham alertas sobre o rendimento acadêmico.</h3>
+
+            <h2>3. ATIVIDADES DESENVOLVIDAS PELO GRUPO </h2>
+            <h2>3.1 Ensino/Pesquisa e Extensão</h2>
+            <span class="descricao">Informar todas as atividades de ensino, pesquisa e extensão.</span>
+            
+            <comp:relatorio_atividade tipo="pesquisa" list="#{RelatorioController.pesquisa}" />
+            <comp:relatorio_atividade tipo="ensino" list="#{RelatorioController.ensino}" />
+            <comp:relatorio_atividade tipo="extensao" list="#{RelatorioController.extensao}" />
+
+            <h2>3.2 Impacto da Graduação e Inovação na Graduação</h2>
+            <span class="descricao">
+                Entre as atividades listadas no item 3.1, informar as três atividades mais impactantes para o curso de graduação
+                e que proporcionaram inovação na graduação.
+            </span>
+            
+            <comp:relatorio_perguntas_2 grupoPerguntas="#{RelatorioController.grupoPerguntas}" />
+
+            <h3>Local e Data: </h3>
+            <h3>Assinatura do Tutor:</h3>
+            <h3>Assinatura do representante dos Alunos, escolhido pleo Grupo:</h3>
+
+        </div>
+
+    </h:body>
+</html>

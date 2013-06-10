@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "Visualizar pesquisa" -->
+            <ui:param name="titulo" value="Alterar Senha" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+
+                <f:metadata>
+                    <f:viewParam name="code" value="#{RecuperarSenhaController.codigo}" />
+                    <f:event type="preRenderView" listener="#{RecuperarSenhaController.carregarTicket}" />
+                </f:metadata>
+                <h:form>
+                    <div class="titulo">
+                        <img src="imgs_layout/img_grupo.gif" width="65" height="60" alt="" class="titulo_img" />
+                        <h1>Recuperação de Senha</h1>
+                        <h:outputText rendered="#{not (RecuperarSenhaController.ticket eq null)}" value="Digite sua nova senha abaixo:" />
+                        <h:outputText rendered="#{RecuperarSenhaController.ticket eq null}" value="Código incorreto" />
+                    </div>
+                    
+                    <h:panelGrid style="margin-left:-9px" cellpadding="9px" columns="2" rendered="#{not (RecuperarSenhaController.ticket eq null)}" >
+                        Nova senha:
+                        <h:inputSecret id="senha" value="#{RecuperarSenhaController.ticket.usuario.senha}" required="true" maxlength="80" styleClass="input form_tabela"
+                                       requiredMessage="Ocorreu um erro. É necessario que o campo 'Nova senha' esteja preenchido." />
+                        Repita sua senha:
+                        <h:inputSecret id="senhaConfirmada" value="#{RecuperarSenhaController.senhaConfirmada}" required="true" maxlength="80" styleClass="input form_tabela"
+                                       requiredMessage="Ocorreu um erro. É necessario que o campo 'Repita sua senha' esteja preenchido." />
+                    </h:panelGrid>
+                    
+                    <p:commandButton value="Salvar" action="#{RecuperarSenhaController.alterarSenha}"
+                                     rendered="#{not (RecuperarSenhaController.ticket eq null)}"
+                                     style="margin-top: 25px" ajax="false" />
+                    
+                    <h:outputText rendered="#{RecuperarSenhaController.ticket eq null}"
+                      value="Ticket expirado ou inexistente! Um ticket para a recuperação de senha expira após 24 horas de sua solicitação, 
+                      crie um novo a partir da função 'recuperar senha' no painel de login ao lado." />
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "Inserir pesquisa" -->
+            <ui:param name="titulo" value="inserir pesquisa" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_pesquisa.gif" width="65" height="60" alt="" class="titulo_img" />
+                    <h1>Inserir atividade de pesquisa</h1>
+                    <span>Preencha os campos abaixo para inserir uma nova atividade de pesquisa</span>
+                </div>
+                <h:form>
+                    <comp:formulario_atividade managedBean="#{PesquisaController}" />
+                    <div class="painel_campo_sfundo" style="float: left; margin-right: 30px">
+                        <p:commandButton value="Salvar" action="#{PesquisaController.salvar}" ajax="false" />
+                    </div>
+                    <div class="painel_campo_sfundo">
+                        <p:commandButton type="reset" value="Limpar campos" ajax="false" />
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

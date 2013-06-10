@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "página inicial" -->
+            <ui:param name="titulo" value="sobre o PET" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_pet.gif" width="65" height="60" alt="" class="titulo_img" />
+                    <h1>O que é o PET</h1>
+                    <span>Saiba o que é o programa de Educação Tutorial</span>
+                </div>
+                <p align="justify">
+                    O Programa de Educação Tutorial (PET) é um programa do governo federal brasileiro de estímulo à pesquisa e extensão universitárias,
+                    no nível de graduação, que mantém grupos de educação tutorial em cursos de graduação de universidades públicas e privadas de todo o Brasil.
+                    O programa é subordinado à Secretaria de Ensino Superior (SESu) do Ministério da Educação (MEC). Esses grupos, chamados de "grupos PET"
+                    se orientam, no desenvolvimento de suas atividades, pelo princípio da indissociabilidade entre ensino, pesquisa e extensão.
+                </p>
+                <p align="justify">
+                    O PET foi criado em 1979, com o nome original de Programa Especial de Treinamento. Até 1999, o programa esteve submetido a CAPES
+                    (Coordenação de Aperfeiçoamento Pessoal de Nível Superior), passando depois para o Ministério da Educação. Entre 1995 e 2003,
+                    o governo tentou por diversas vezes extinguir o programa, sob alegações de que era oneroso aos cofres públicos, mas esbarrou em
+                    forte oposição da comunidade acadêmica. Em 2004, o nome foi alterado para Programa de Educação Tutorial.
+              </p>
+
+
+                <p align="justify">
+                    <p><b>Os principais objetivos do grupo são:</b></p>
+                    <ul>
+                   <li>Desenvolver atividades acadêmicas em padrões de qualidade de excelência, mediante grupos de aprendizagem tutorial de natureza
+                       coletiva e interdisciplinar.</li>
+                    <li>Contribuir para a elevação da qualidade da formação acadêmica dos alunos de graduação.</li>
+                    <li>Estimular a formação de profissionais e docentes de elevada qualificação técnica, científica, tecnológica e acadêmica.</li>
+                    <li>Formular novas estratégias de desenvolvimento e modernização do ensino superior no país.</li>
+                    <li>Estimular o espírito crítico, bem como a atuação profissional pautada pela ética, pela cidadania e pela
+                        função social da educação superior.</li>
+                    </ul>
+                </p>
+
+                <p align="justify">
+                        O Programa de Educação Tutorial constitui-se, portanto, em uma modalidade de investimento acadêmico em cursos de graduação
+                        que têm sérios compromissos epistemológicos, pedagógicos, éticos e sociais. Com uma concepção baseada nos moldes de grupos
+                        tutoriais de aprendizagem e orientado pelo objetivo de formar globalmente o aluno, o PET não visa apenas proporcionar aos
+                        bolsistas e aos alunos do curso uma gama nova e diversificada de conhecimento acadêmico, mas assume a responsabilidade de
+                        contribuir para sua melhor qualificação como pessoa humana e como membro da sociedade.
+                </p>
+                
+                <p align="justify">Para saber mais acesse o blog <a href="http://petbrasil08.blogspot.com/" target="_blank">PET Brasil</a>, mantido pela comunidade petiana do país.</p>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

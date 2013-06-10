@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="dataArray" required="true" />
+            <composite:attribute name="managedBean" required="true" />
+            <!-- se fullAcess é true, então é permitido visualizar, editar e
+            excluir as atividades, caso contrário apenas a visualização
+            é permitida. Por padrão, fullAccess é false -->
+            <composite:attribute name="fullAccess" required="false" default="#{false}" />
+        </composite:interface>
+        <composite:implementation>
+            <!-- value="{cc.attrs.dataArray} -->
+            <p:dataTable id="atividades" value="#{cc.attrs.dataArray}"
+                     var="a" paginator="true" rows="10"
+                     emptyMessage="Não há atividades cadastradas" >
+
+                <!-- Título -->
+                <p:column>
+                        <f:facet name="header">
+                            <p:commandLink value="Titulo" onfocus="" ajax="true" action="#{cc.attrs.managedBean.inverter}" update="atividades"/>
+                            <!--<p:commandLink value="(A-Z)" ajax="true" action="{EnsinoController.desinverter()}" update="atividades"/>
+                            <p:commandLink value="(Z-A)" ajax="true" action="{EnsinoController.inverter()}" update="atividades"/>-->
+                        </f:facet>
+                    <h:outputText value="#{a.titulo}" />
+                </p:column>
+
+                <!-- Data de início -->
+                <p:column style="width:120px">
+                    <f:facet name="header">
+                            <h:outputText value="Data de início" />
+                    </f:facet>
+                    <h:outputText value="#{a.dataInicio}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </p:column>
+
+                <!-- Operações -->
+                <p:column style="width:32px" >
+                    <p:button outcome="visualizar"
+                              image="ui-icon ui-icon-search"
+                              alt="visualizar" title="visualizar">
+                        <f:param name="id" value="#{a.idAsString}" />
+                    </p:button>
+                </p:column>
+
+                <p:column style="width:32px" rendered="#{cc.attrs.fullAccess}" >
+                    <p:button outcome="editar"
+                              image="ui-icon ui-icon-pencil"
+                              alt="editar" title="editar">
+                        <f:param name="id" value="#{a.idAsString}" />
+                    </p:button>
+                </p:column>
+
+                <p:column style="width:32px" rendered="#{cc.attrs.fullAccess}" >
+                    <p:commandButton oncomplete="confirmation.show()"
+                                     image="ui-icon ui-icon-close"
+                                     alt="excluir" title="excluir">
+                        <f:setPropertyActionListener value="#{a}" target="#{cc.attrs.managedBean.atividade}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+            <p:confirmDialog message="Tem certeza que deseja excluir esta atividade permanentemente?"
+                             showEffect="fade" hideEffect="fade"
+                             header="Excluir anotação" severity="alert" widgetVar="confirmation">
+                <p:commandButton value="Sim" action="#{cc.attrs.managedBean.excluir}" oncomplete="confirmation.hide()" update="atividades growl" />
+                <p:commandButton value="Não" onclick="confirmation.hide()" type="button" />
+            </p:confirmDialog>
+
+        </composite:implementation>
+    </h:body>
+</html>

@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="managedBean" required="true" />
+        </composite:interface>
+
+        <composite:implementation>
+
+            <div style="margin-top:60px; margin-bottom: 50px; text-align: center">
+                <h2><h:outputText value="#{cc.attrs.managedBean.grupo.sigla}" /></h2>
+                <h3>
+                    Criado em: <h:outputText value="#{cc.attrs.managedBean.grupo.implantacao}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </h3>
+            </div>
+
+            <h:panelGroup layout="block" styleClass="painel_form" rendered="#{not empty cc.attrs.managedBean.ativacaoDesativacao}">
+                <b><u>Ativações/Desativações:</u></b>
+                <ul><h:dataTable value="#{cc.attrs.managedBean.ativacaoDesativacao}"
+                                 var="historico"
+                                 border="0"
+                                 cellpadding="3px"
+                                 style="margin: -3px"
+                                 cellspacing="0">
+                        <h:column>
+                            <li>Reativado em:
+                                <h:outputText value="#{historico.reativacao.data}">;
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText></li>
+                            Motivo:
+                            <h:outputText value="#{historico.reativacao.justificativa}"/><br/><br/>
+                            <li>Desativado em:
+                                <h:outputText value="#{historico.desativacao.data}">;
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText></li>
+                            Motivo:
+                            <h:outputText value="#{historico.desativacao.justificativa}"/><br/><br/>
+                        </h:column>
+                    </h:dataTable></ul>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="painel_form">
+                <p class="label_top"><b><u>Tutores:</u></b></p>
+                <ul><p><li><h:outputText value="#{cc.attrs.managedBean.tutor.nome}" /> (tutor vigente): ingressou em
+                            <h:outputText value="#{cc.attrs.managedBean.tutor.dataIngressoPet}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText></li></p></ul>
+                <ul><h:dataTable value="#{cc.attrs.managedBean.tutores}"
+                                 var="tutor"
+                                 border="0"
+                                 cellpadding="3px"
+                                 style="margin: -3px"
+                                 cellspacing="0">
+                        <h:column>
+                            <li><h:outputText value="#{tutor.nome}"/>:&nbsp;
+                                <h:outputText value="#{tutor.dataIngressoPet}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText> à&nbsp;
+                                <h:outputText value="#{tutor.dataSaidaPet}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText></li>
+                        </h:column>
+                    </h:dataTable></ul>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="painel_form" rendered="#{not empty cc.attrs.managedBean.petianos}">
+                <p class="label_top"><b><u>Petianos atuais:</u></b></p>
+                <ul><h:dataTable value="#{cc.attrs.managedBean.petianos}"
+                                 var="aluno"
+                                 border="0"
+                                 cellpadding="3px"
+                                 style="margin: -3px"
+                                 cellspacing="0">
+                        <h:column>
+                            <li><h:outputText value="#{aluno.nome}" />: ingressou em
+                                <h:outputText value="#{aluno.dataIngressoPet}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText></li>
+                        </h:column>
+                    </h:dataTable></ul>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="painel_form" rendered="#{not empty cc.attrs.managedBean.exPetianos}">
+                <p class="label_top"><b><u>Petianos anteriores:</u></b></p>
+                <ul><h:dataTable value="#{cc.attrs.managedBean.exPetianos}"
+                             var="aluno"
+                             border="0"
+                             cellpadding="3px"
+                             style="margin: -3px"
+                             cellspacing="0">
+                    <h:column>
+                        <li><h:outputText value="#{aluno.nome}"/>:&nbsp;
+                            <h:outputText value="#{aluno.dataIngressoPet}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText> à
+                            <h:outputText value="#{aluno.dataSaidaPet}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText></li>
+                    </h:column>
+                </h:dataTable></ul>
+            </h:panelGroup>
+
+        </composite:implementation>
+    </h:body>
+</html>

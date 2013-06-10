@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Visualização de atividade</title>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="object" required="true" />
+            <composite:attribute name="publica" type="java.lang.Boolean" required="false" default="#{false}" />
+        </composite:interface>
+        <composite:implementation>
+            <!-- Título -->
+            <div style="margin-top:60px; margin-bottom: 50px; text-align: center">
+                <h2><h:outputText value="#{cc.attrs.object.titulo}" /></h2>
+                <h3>
+                    <h:outputText value="#{cc.attrs.object.dataInicio}" rendered="#{not empty cc.attrs.object.dataInicio}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                    <h:panelGroup rendered="#{not empty cc.attrs.object.dataFim}">
+                         a
+                        <h:outputText value="#{cc.attrs.object.dataFim}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </h:panelGroup>
+                </h3>
+            </div>
+
+            <!-- Natureza -->
+            <h:panelGroup layout="block" styleClass="painel_form" rendered="#{cc.attrs.publica}">
+                <p class="label_top"><b><u>Natureza:</u></b>&nbsp;
+                <h:outputText value="#{cc.attrs.object.natureza.nome}" /></p>
+            </h:panelGroup>
+            
+            <ui:remove><!-- Coletiva -->
+            <!--<h:panelGroup layout="block" styleClass="painel_form">
+                <p class="label_top">
+                    <b><u>Atividade coletiva:</u></b>
+                    <h:outputText value=" sim" rendered="#{cc.attrs.object.coletiva}" />
+                    <h:outputText value=" não" rendered="#{not cc.attrs.object.coletiva}" />
+                </p>
+                </h:panelGroup>--></ui:remove>
+
+            <!-- Parceiros -->
+            <h:panelGroup layout="block" styleClass="painel_form" rendered="#{not empty cc.attrs.object.parceiros}">
+                <p class="label_top"><b><u>Parceiros:</u></b></p>
+                <p><h:outputText value="#{cc.attrs.object.parceiros}" /></p>
+            </h:panelGroup>
+
+            <!-- Responsáveis -->
+            <h:panelGroup layout="block" styleClass="painel_form" rendered="#{not empty cc.attrs.object.responsaveis}">
+                <p class="label_top"><b><u>Petianos responsáveis:</u></b></p>
+                <h:dataTable value="#{cc.attrs.object.responsaveis}"
+                         var="aluno"
+                         border="0"
+                         cellpadding="3px"
+                         style="margin: -3px"
+                         cellspacing="0">
+                    <h:column>
+                        <h:outputText value="#{aluno.nome}" />
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+
+            <!-- Descrição -->
+            <div class="painel_form">
+                <p class="label_top"><b><u>Descrição:</u></b></p>
+                <p><h:outputText value="#{cc.attrs.object.descricao}" /></p>
+            </div>
+
+            <!-- Justificativa -->
+            <div class="painel_form">
+                <p class="label_top"><b><u>Justificativa:</u></b></p>
+                <p><h:outputText value="#{cc.attrs.object.justificativa}" /></p>
+            </div>
+
+            <!-- Resultados esperados -->
+            <div class="painel_form">
+                <p class="label_top"><b><u>Resultados esperados:</u></b></p>
+                <p><h:outputText value="#{cc.attrs.object.resultadosEsperados}" /></p>
+            </div>
+
+            <!-- Resultados alcançados -->
+            <h:panelGroup layout="block" styleClass="painel_form" rendered="#{not empty cc.attrs.object.resultadosAlcancados}">
+                <p class="label_top"><b><u>Resultados alcançados:</u></b></p>
+                <p><h:outputText value="#{cc.attrs.object.resultadosAlcancados}" /></p>
+            </h:panelGroup>
+
+            <!-- Público alvo -->
+            <h:panelGroup layout="block" styleClass="painel_form" rendered="#{cc.attrs.publica and (not empty cc.attrs.object.publicoAlvo)}">
+                <p class="label_top"><b><u>Público alvo:</u></b></p>
+                <p><h:outputText value="#{cc.attrs.object.publicoAlvo}" /></p>
+            </h:panelGroup>
+
+            <!-- Comentário -->
+            <h:panelGroup layout="block" styleClass="painel_form" rendered="#{not empty cc.attrs.object.comentario}">
+                <p class="label_top"><b><u>Comentário:</u></b></p>
+                <p><h:outputText value="#{cc.attrs.object.comentario}" /></p>
+            </h:panelGroup>
+
+        </composite:implementation>
+    </h:body>
+</html>

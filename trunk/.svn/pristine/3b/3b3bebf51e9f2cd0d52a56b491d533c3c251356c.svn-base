@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "Inserir grupo" -->
+            <ui:param name="titulo" value="inserir grupo" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_instituicao.gif" width="65" height="60" alt="" class="titulo_img" />
+                    <h1>Inserir instituição</h1>
+                    <span>Preencha os campos abaixo para inserir uma nova instituição</span>
+                </div>
+                <h:form>
+                    <h:panelGroup id="instituicao" rendered="#{InstituicaoController.passo eq 1}" >
+                        <div class="dtpet_item" style="margin-top:40px; margin-bottom: 25px">
+                            <h2>Informações da instituição:</h2>
+                        </div>
+                            <comp:formulario_instituicao object="#{InstituicaoController.instituicao}" fullaccess="#{true}" />
+                    </h:panelGroup>
+
+                    <h:panelGroup id="CLA" rendered="#{InstituicaoController.passo eq 2}" >
+                        <div class="dtpet_item" style="margin-top:40px; margin-bottom: 25px">
+                            <h2>Informações do CLA:</h2>
+                        </div>
+                            <comp:formulario_usuario object="#{InstituicaoController.cla}" usuario="cla" />
+                   </h:panelGroup>
+
+                    <div style="margin-top:40px">
+                        <h:panelGroup layout="blocked" style="float: left; margin-right: 30px"
+                                      rendered="#{InstituicaoController.passo eq 2}">
+                            <p:commandButton value="Passo anterior" immediate="true" action="#{InstituicaoController.passoAnterior}" update="@form" />
+                        </h:panelGroup>
+
+                        <h:panelGroup layout="blocked" style="float: left; margin-right: 30px"
+                                      rendered="#{InstituicaoController.passo eq 1}">
+                            <p:commandButton value="Próximo Passo" action="#{InstituicaoController.proximoPasso}" update="@form" />
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{InstituicaoController.passo eq 2}">
+                            <div style="float: left">
+                                <p:commandButton value="Salvar" action="#{InstituicaoController.salvar}"
+                                                 ajax="false" onclick="setVisible('loading')" />
+                            </div>
+                            <div id="loading" style="margin-left:235px; padding-top:7px; visibility: hidden">
+                                <comp:ajax_loading ajaxListener="false" />
+                            </div>
+                        </h:panelGroup>
+                    </div>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é Relatorio" -->
+            <ui:param name="titulo" value="Relatorio" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_relatorio.gif" width="65" height="60" alt="" class="titulo_img" />
+                    <h1>Relatorio de atividades</h1>
+                    <span>Preencha os campos abaixo e gere o relatório de atividades de seu grupo!</span>
+                </div>
+                <h:form id="formulario">
+                    <p style="margin-top:40px; font-weight: bold">Escolha o período que o realatório deve compreender:</p>
+                    <p style="margin-top: 20px">
+                        <p:calendar id="data_inicio" value="#{RelatorioGrupoController.inicioRelatorio}" 
+                                    validator="#{DateValidator.validarData}" style="margin-right:10px"
+                                    locale="pt_BR" showButtonPanel="true" navigator="true" required="true">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:calendar>
+                        a
+                        <p:calendar id="data_fim" value="#{RelatorioGrupoController.fimRelatorio}"
+                                    validator="#{DateValidator.validarData}" style="margin-left:10px"
+                                    locale="pt_BR" showButtonPanel="true" navigator="true" required="true">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:calendar>
+                    </p>
+                    
+                    <p style="margin-top: 40px; font-weight: bold">Selecione os componente do relatório:</p>
+                    <h:selectManyCheckbox id="checkboxes" value="#{RelatorioGrupoController.componentesRelatorio}" layout="pageDirection"
+                                          required="true" requiredMessage="Selecione ao menos um componente para o relatório.">
+                        <f:selectItem itemLabel="Dados institucionais" itemValue="instituicao" />
+                        <f:selectItem itemLabel="Dados do grupo" itemValue="grupo" />
+                        <f:selectItem itemLabel="Atividades de ensino" itemValue="ensino" />
+                        <f:selectItem itemLabel="Atividades de extensão" itemValue="extensao" />
+                        <f:selectItem itemLabel="Atividades de pesquisa" itemValue="pesquisa" />
+                    </h:selectManyCheckbox>
+                    
+                    <div style="margin-top:40px">
+                        <p:commandButton value="Gerar relatório em RTF (editável)" ajax="false">
+                            <p:fileDownload value="#{RelatorioGrupoController.relatorioRTF}" />
+                        </p:commandButton>
+                        <p:commandButton value="Gerar relatório em PDF" ajax="false" style="margin-left: 20px">
+                            <p:fileDownload value="#{RelatorioGrupoController.relatorioPDF}" />
+                        </p:commandButton>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

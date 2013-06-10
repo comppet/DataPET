@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "página do tutor" -->
+            <ui:param name="titulo" value="página do tutor" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_meus_dados.gif" width="65" height="60" alt="Meus Dados" class="titulo_img" />
+                    <h1>Meus Dados</h1>
+                    <span>Por favor, verifique seus dados no DataPET</span>
+                </div>
+                <ul class="menu_ger">
+                    <li><img src="imgs_layout/item.gif" width="7" height="7" alt="item" class="item_figura" /><a href="#" onclick="dlg2.show()">Alterar senha</a></li>
+                </ul>
+                <p:dialog resizable="false" draggable="false" id="modalDialog" header="Modal Dialog" widgetVar="dlg2" modal="true" width="600" height="230">  
+
+                    <h:form>
+
+                        <h:panelGrid id="senhas" style="margin-left:-9px" cellpadding="9px" columns="2">
+
+                            <h:outputText value="*Senha atual: "/>
+                            <h:inputSecret id="senhaAtual" value="#{LoginController.senha}" size="30" required="true"  styleClass="input form_tabela"
+                                           requiredMessage="O campo senha é obrigatório"/>
+
+                            <h:outputText value="*Nova senha: "/>
+                            <h:inputSecret id="senhaNova" value="#{LoginController.senhaNova}" required="true" maxlength="30" styleClass="input form_tabela"
+                                           requiredMessage="Campo obrigatório"/>
+
+                            <h:outputText value="*Confirmar senha: "/>
+                            <h:inputSecret id="senhaConfirmada" value="#{LoginController.senhaConfirmada}" required="true" maxlength="30" styleClass="input form_tabela"
+                                           requiredMessage="Campo obrigatório"/>
+
+                        </h:panelGrid>
+
+                        <p:commandButton id="confirma" style="margin-top:18px" update="@form growl" value="Alterar" action="#{LoginController.alterarSenha}" onclick="dlg2.close();"/>
+
+                    </h:form>
+
+                </p:dialog> 
+                <!--
+                <p:commandButton id="modalDialogButton" value="Modal" onclick="dlg2.show();" type="button"/>
+                <a href="alterar_senha.xhtml" style="position: relative; left: 155px; text-decoration: none; color: #007BA4;"> Alterar senha </a>
+                -->
+
+                <h:form id="form">
+                    <comp:formulario_usuario object="#{session.getAttribute('usuario')}" usuario="tutor" fullaccess="false" />
+                    <p class="ultimo_paragrafo">
+                        <p:commandButton style="margin-top:18px" value="Salvar" action="#{TutorController.editar}" update="@form growl">
+                            <f:setPropertyActionListener value="#{session.getAttribute('usuario')}" target="#{TutorController.usuario}" />
+                        </p:commandButton>
+                    </p>
+                </h:form>
+
+                <div class="titulo">
+                    <img src="imgs_layout/img_grupo.gif" width="65" height="60" alt="Dados do grupo" class="titulo_img" />
+                    <h1>Dados do grupo</h1>
+                    <span>Por favor, verifique os dados de seu grupo PET</span>
+                </div>
+                <h:form id="form2">
+                    <comp:formulario_grupo object="#{session.getAttribute('grupo')}" fullaccess="false" />
+                    <p class="ultimo_paragrafo">
+                        <p:commandButton style="margin-top:18px" value="Salvar" action="#{GrupoController.editarSimples}" update="@form growl">
+                            <f:setPropertyActionListener value="#{session.getAttribute('grupo')}" target="#{GrupoController.grupo}" />
+                        </p:commandButton>
+                    </p>
+                </h:form>
+            </ui:define>
+        </ui:composition> 
+    </h:body>
+</html>

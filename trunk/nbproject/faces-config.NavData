@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="resources/comp/visualizar_atividade.xhtml" x="150" y="1500" zoom="true"/>
+        <Node id="pesquisa_insercao.xhtml" x="150" y="1200" zoom="true"/>
+        <Node id="resources/comp/atividades_datatable.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="documentacao.xhtml" x="661" y="84" zoom="true"/>
+        <Node id="grupo.xhtml" x="876" y="261" zoom="true"/>
+        <Node id="fale_conosco.xhtml" x="433" y="30" zoom="true"/>
+        <Node id="anotacao.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="relatorio_gerar.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="grupo_insercao.xhtml" x="1147" y="260" zoom="true"/>
+        <Node id="download.xhtml" x="400" y="1200" zoom="true"/>
+        <Node id="tutor.xhtml" x="845" y="533" zoom="true"/>
+        <Node id="resources/comp/equipe_quadro.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="resources/comp/formulario_curso.xhtml" x="904" y="88" zoom="true"/>
+        <Node id="resources/comp/formulario_instituicao.xhtml" x="400" y="1350" zoom="true"/>
+        <Node id="resources/comp/relatorio_perguntas_2.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="petianos_contatos.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="administrador.xhtml" x="824" y="499" zoom="true"/>
+        <Node id="instituicao_edicao.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="aluno.xhtml" x="150" y="1350" zoom="true"/>
+        <Node id="resources/comp/listar_instituicoes.xhtml" x="1309" y="91" zoom="true"/>
+        <Node id="login_painel.xhtml" x="409" y="481" zoom="true"/>
+        <Node id="pesquisa_visualizacao.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="cla.xhtml" x="1150" y="900" zoom="true"/>
+        <Node id="extensao_visualizacao.xhtml" x="412" y="310" zoom="true"/>
+        <Node id="resources/comp/formulario_atividade.xhtml" x="1648" y="34" zoom="true"/>
+        <Node id="relatorio/relatorio.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="ensino.xhtml" x="218" y="214" zoom="true"/>
+        <Node id="resources/comp/relatorio_perguntas_form.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="cla_busca.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="sobre_pet.xhtml" x="19" y="26" zoom="true"/>
+        <Node id="resources/comp/relatorio_perguntas.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="ensino_edicao.xhtml" x="406" y="248" zoom="true"/>
+        <Node id="ensino_visualizacao.xhtml" x="440" y="177" zoom="true"/>
+        <Node id="ensino_insercao.xhtml" x="198" y="147" zoom="true"/>
+        <Node id="template.xhtml" x="663" y="30" zoom="true"/>
+        <Node id="403.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="administrador_painel.xhtml" x="400" y="579" zoom="true"/>
+        <Node id="recuperacao_senha.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="instituicao.xhtml" x="225" y="24" zoom="true"/>
+        <Node id="resources/comp/formulario_usuario.xhtml" x="650" y="1050" zoom="true"/>
+        <Node id="resources/comp/listar_anotacoes.xhtml" x="1307" y="62" zoom="true"/>
+        <Node id="cla_painel.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="equipe_desenvolvimento.xhtml" x="352" y="58" zoom="true"/>
+        <Node id="resources/comp/listar_historico.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="resources/comp/ajax_loading.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="sobre_datapet.xhtml" x="117" y="57" zoom="true"/>
+        <Node id="esqueceu_senha.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="historico.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="petiano_gerenciamento.xhtml" x="807" y="563" zoom="true"/>
+        <Node id="resources/comp/listar_atividades.xhtml" x="99" y="968" zoom="true"/>
+        <Node id="resources/comp/formulario_email.xhtml" x="1305" y="33" zoom="true"/>
+        <Node id="pesquisa_edicao.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="instituicao_insercao.xhtml" x="900" y="1050" zoom="true"/>
+        <Node id="alterar_senha.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="tutor_painel.xhtml" x="402" y="512" zoom="true"/>
+        <Node id="grupos_contatos.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="extensao_insercao.xhtml" x="407" y="214" zoom="true"/>
+        <Node id="resources/comp/formulario_grupo.xhtml" x="1663" y="96" zoom="true"/>
+        <Node id="resources/comp/listar_grupo.xhtml" x="950" y="62" zoom="true"/>
+        <Node id="extensao_edicao.xhtml" x="439" y="142" zoom="true"/>
+        <Node id="naturezas.xhtml" x="231" y="176" zoom="true"/>
+        <Node id="index.xhtml" x="-66" y="58" zoom="true"/>
+        <Node id="grupo_edicao.xhtml" x="849" y="329" zoom="true"/>
+        <Node id="aluno_painel.xhtml" x="416" y="544" zoom="true"/>
+        <Node id="pesquisa.xhtml" x="457" y="344" zoom="true"/>
+        <Node id="resources/comp/relatorio_atividade.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="extensao.xhtml" x="428" y="280" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

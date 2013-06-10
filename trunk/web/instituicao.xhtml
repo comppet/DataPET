@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+     <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "Atividades de pesquisa" -->
+            <ui:param name="titulo" value="instituicao" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_instituicao.gif" width="65" height="60" alt="" class="titulo_img" />
+                    <h1>Gerenciamento de Instituição</h1>
+                    <span>Visualise e edite informações sobre instituições do sistema.</span>
+                </div>
+                <h:form>
+                    <div class="inserir"><a href="instituicao_insercao.xhtml">Inserir nova instituição</a></div>
+                    <p style="margin-bottom: 30px;">
+                        <h:outputText value="Abaixo encontra-se a lista de instituições. Utilize a tabela para ter acesso à instituição desejada." rendered="#{not empty InstituicaoController.instituicao}" />
+                        <h:outputText value="Ainda não há instituições cadastradas. Utilize o link acima para adicionar uma nova instituição." rendered="#{empty InstituicaoController.instituicao}" />
+                    </p>
+                    <comp:listar_instituicoes managedBean="#{InstituicaoController}" />
+                    
+                    <p align="justify" style="margin-top: 35px">
+                        * Atenção: Por razões de segurança, não é possível excluir uma instituição via interface gráfica. Por favor,
+                        para realizar esta operação contacte o administrador do banco de dados.
+                    </p>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

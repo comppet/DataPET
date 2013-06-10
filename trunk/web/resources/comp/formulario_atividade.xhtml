@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Formulario de inserção de atividade</title>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="managedBean" required="true" />
+            <composite:attribute name="publica" type="java.lang.Boolean" required="false" default="#{false}" />
+        </composite:interface>
+        <composite:implementation>
+            <!-- Repassando id da atividade através de um campo escondido (hidden) -->
+            <h:inputHidden value="#{cc.attrs.managedBean.atividade.id}" />
+
+            <!-- início do formulário. Título, datas, natureza e parceiros -->
+            <h:panelGrid style="margin-left:-9px" cellpadding="9px" columns="2">
+                * Título:
+                <h:inputText id="titulo" requiredMessage="Ocorreu um erro. O campo 'título' é obrigatório." value="#{cc.attrs.managedBean.atividade.titulo}" required="true" maxlength="200" styleClass="input form_tabela" />
+
+                <h:outputText value="Natureza:" rendered="#{cc.attrs.publica}" />
+                <h:selectOneMenu value="#{cc.attrs.managedBean.atividade.natureza.id}" id="natureza" required="true" styleClass="input form_select" rendered="#{cc.attrs.publica}">
+                    <f:selectItems value="#{NaturezaController.treeMap}" />
+                    <f:selectItem itemLabel="Outra" itemValue="1" />
+                </h:selectOneMenu>
+
+                Período de realização:
+
+                <h:panelGroup>
+
+                    <p:calendar id="data_inicio" value="#{cc.attrs.managedBean.atividade.dataInicio}"
+                                validator="#{DateValidator.validarData}" 
+                                showButtonPanel="true" navigator="true" locale="pt_BR" pattern="dd/MM/yyyy"
+                                immediate="true" />
+
+                    <span style="margin-left:8px; margin-right: 8px"> a </span>
+                    <p:calendar id="data_fim" value="#{cc.attrs.managedBean.atividade.dataFim}" validator="#{DateValidator.validarData}"
+                                locale="pt_BR" showButtonPanel="true" navigator="true" required="true"
+                                requiredMessage="Ocorreu um erro. A data de término da atividade é obrigatória."
+                                pattern="dd/MM/yyyy" />
+                </h:panelGroup>
+
+
+                <ui:remove><!--<h:outputText value="Atividade coletiva:" />
+                <h:panelGroup>
+                    <h:selectOneRadio id="coletiva" value="#{cc.attrs.managedBean.atividade.coletiva}" required="true" >
+                        <f:selectItem itemLabel="Sim" itemValue="true" />
+                        <f:selectItem itemLabel="Não" itemValue="false" />
+                    </h:selectOneRadio>
+                           </h:panelGroup>--></ui:remove>
+
+                Parceiros:
+                <h:inputText id="parceiros" value="#{cc.attrs.managedBean.atividade.parceiros}" required="false" styleClass="input form_tabela" />
+            </h:panelGrid>
+
+            <!-- Petianos responsáveis -->
+            <div style="width:580px; margin-top:43px; margin-bottom:43px">
+                <p style="margin-bottom:20px" align="center">Utilize o quadro abaixo para selecionar os petianos responsáveis por esta atividade:</p>
+                <div align="center">
+                    <p:pickList value="#{cc.attrs.managedBean.responsaveisDualList}"
+                                var="aluno" itemLabel="#{aluno}"
+                                itemValue="#{aluno.id}:#{aluno.nome}" converter="AlunoConverter">
+                        <f:facet name="sourceCaption">Petianos disponíveis</f:facet>
+                        <f:facet name="targetCaption">Petianos responsáveis</f:facet>
+                    </p:pickList>
+                </div>
+            </div>
+
+            <!-- Descrição -->
+            <div class="painel_form">
+                <p class="label_top">* Descrição:</p>
+                <h:inputTextarea id="descricao" requiredMessage="Ocorreu um erro. O campo 'descrição' é obrigatório." value="#{cc.attrs.managedBean.atividade.descricao}"
+                                 required="true" rows="7" styleClass="input form_paragrafo" onkeydown="return limitarTextArea(this, 500, event)" />
+            </div>
+
+            <!-- Justificativa -->
+            <div class="painel_form">
+                <p class="label_top">* Justificativa:</p>
+                <h:inputTextarea id="justificativa" requiredMessage="Ocorreu um erro. O campo 'justificativa' é obrigatório." value="#{cc.attrs.managedBean.atividade.justificativa}" required="true" rows="5" styleClass="input form_paragrafo" />
+            </div>
+
+            <!-- Resultados esperados -->
+            <div class="painel_form">
+                <p class="label_top">* Resultados esperados:</p>
+                <h:inputTextarea id="resultados_esperados" requiredMessage="Ocorreu um erro. O campo 'resultados esperados' é obrigatório." value="#{cc.attrs.managedBean.atividade.resultadosEsperados}" required="true" rows="5" styleClass="input form_paragrafo" />
+            </div>
+
+            <!-- Resultados alcançados -->
+            <div class="painel_form">
+                <p class="label_top">Resultados alcançados:</p>
+                <h:inputTextarea id="resultados_alcancados" value="#{cc.attrs.managedBean.atividade.resultadosAlcancados}" required="false" rows="5" styleClass="input form_paragrafo" />
+            </div>
+
+            <!-- Público Alvo -->
+            <h:panelGroup layout="block" styleClass="painel_form" rendered="#{cc.attrs.publica}">
+                <p class="label_top">Público alvo:</p>
+                <h:inputTextarea value="#{cc.attrs.managedBean.atividade.publicoAlvo}" required="false" rows="5" styleClass="input form_paragrafo" />
+            </h:panelGroup>
+
+            <!-- Comentário -->
+            <div class="painel_form">
+                <p class="label_top">Comentário:</p>
+                <h:inputTextarea id="comentario" value="#{cc.attrs.managedBean.atividade.comentario}" required="false" rows="5" styleClass="input form_paragrafo" />
+            </div>
+
+                   
+        </composite:implementation>
+    </h:body>
+</html>

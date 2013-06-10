@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "página inicial" -->
+            <ui:param name="titulo" value="fale conosco" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_fale_conosco.gif" width="65" height="60" alt="Fale Conosco" class="titulo_img" />
+                    <h1>Fale Conosco</h1>
+                    <span>Envie uma mensagem aos desenvolvedores do DataPET.</span>
+                </div>
+                <p>
+                    Para reportar um bug, por favor acesse <a target="_blank" href="http://code.google.com/p/datapet/issues/entry">nossa página no Google Code</a>. 
+                    Caso você não possua conta no Google, por favor utilize os campos abaixo.
+                </p>
+                 <h:form>
+                     <comp:ajax_loading bar="true" titulo="Enviando e-mail..." widgetVar="loading" />
+                     <comp:formulario_email messageStyle="height: 150px" inputTextStyle="width: 508px" />
+                     <div style="margin-top: 30px">
+                         <div style="float: left; margin-right: 30px">
+                             <p:commandButton value="Enviar mensagem"  action="#{EmailController.enviaEmail}" update="@form growl"
+                                              onclick="loading.show()" oncomplete="loading.hide()" />
+                         </div>
+                         <p:commandButton value="Limpar campos" type="reset" ajax="false" />
+                    </div>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

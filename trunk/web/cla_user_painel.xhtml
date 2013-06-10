@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <ui:composition>
+            <img src="imgs_layout/titulo_menu_cla.gif" alt="Ola tutor" width="96" height="20" class="titulo_painel" />
+            <div id="dados" class="texto_verde">
+                Institução: <h:outputText value ="#{session.getAttribute('instituicao').sigla}" /><br />
+                Grupo: <h:outputText value ="CLA" /><br />
+            </div>
+            <div class="opcao"><img src="imgs_layout/item.gif" width="7" height="7" alt="item" class="item_figura" /><a href="cla.xhtml">Início</a></div>
+            <div class="opcao"><img src="imgs_layout/item.gif" width="7" height="7" alt="item" class="item_figura" /><a href="alterar_senha.xhtml">Alterar senha</a></div>
+            <h:form>
+                <div class="opcao">
+                    <img src="imgs_layout/item.gif" width="7" height="7" alt="item" class="item_figura" />
+                    <!-- o parâmetro "style" na tag abaixo serve para consertar um espaço que o JSF coloca antes de "Sair" sem ninguém ter pedido... -->
+                    <h:commandLink value="Sair" action="#{LoginController.logout}" style="margin-left:-4px" />
+                </div>
+            </h:form>
+            <img src="imgs_layout/titulo_menu_atividades.gif" alt="Atividades" width="104" height="20" class="titulo_painel" />
+            <div class="opcao"><img src="imgs_layout/item.gif" width="7" height="7" alt="item" class="item_figura" /><a href="cla_busca.xhtml">Buscar atividades</a></div>
+            <img src="imgs_layout/titulo_menu_grupospet.gif" alt="Grupos PET" width="110" height="20" class="titulo_painel" />
+            <div class="opcao"><img src="imgs_layout/item.gif" width="7" height="7" alt="item" class="item_figura" /><a href="grupo.xhtml">Gerenciar grupos PET</a></div>
+            <div class="opcao"><img src="imgs_layout/item.gif" width="7" height="7" alt="item" class="item_figura" /><a href="grupos_contatos.xhtml">Lista de contatos</a></div>
+        </ui:composition>
+    </h:body>
+</html>

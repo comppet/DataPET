@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : permissoes.xml
+    Created on : 31 de Março de 2011, 10:51
+    Author     : Tiago Peres França
+    Description: Este arquivo serve para definir quais páginas são acessíveis
+                 por qual tipo de usuário (role).
+-->
+
+<root>
+    <redirecionamento>
+        <login>index</login>
+    </redirecionamento>
+
+    <permissoes>
+         <visitante>
+            <view id="sobre_datapet"/>
+            <view id="sobre_pet"/>
+            <view id="equipe_desenvolvimento"/>
+            <view id="download"/>
+            <view id="documentacao"/>
+            <view id="fale_conosco"/>
+            <view id="esqueceu_senha"/>
+            <view id="recuperacao_senha"/>
+            <view id="403" />
+            <view id="404" />
+        </visitante>
+        
+        <admin>
+            <view id="administrador" />
+            <view id="alterar_senha"/>
+            <view id="instituicao" />
+            <view id="instituicao_insercao" />
+            <view id="instituicao_edicao" />
+            <view id="documentacao"/>
+            <view id="download"/>
+            <view id="equipe_desenvolvimento"/>
+            <view id="fale_conosco"/>
+            <view id="sobre_datapet"/>
+            <view id="sobre_pet"/>
+            <view id="403" />
+            <view id="404" />
+        </admin>
+
+        <cla>
+            <view id="cla" />
+            <view id="alterar_senha"/>
+            <view id="grupo" />
+            <view id="grupo_edicao" />
+            <view id="grupo_insercao" />
+            <view id="grupo_visualizacao" />
+            <view id="grupos_contatos" />
+            <view id="documentacao"/>
+            <view id="download"/>
+            <view id="equipe_desenvolvimento"/>
+            <view id="fale_conosco"/>
+            <view id="sobre_datapet"/>
+            <view id="sobre_pet"/>
+            <view id="cla_busca" />
+            <view id="403" />
+            <view id="404" />
+            <view id="cla_gerenciamento" />
+        </cla>
+
+        <tutor>
+            <view id="atividades" />
+            <view id="historico" />
+            <view id="petianos_contatos" />
+            <view id="grupos_contatos" />
+            <view id="anotacao" />
+            <view id="alterar_senha"/>
+            <view id="ensino" />
+            <view id="ensino_edicao" />
+            <view id="ensino_insercao" />
+            <view id="ensino_visualizacao" />
+            <view id="extensao" />
+            <view id="extensao_edicao" />
+            <view id="extensao_insercao" />
+            <view id="extensao_visualizacao" />
+            <view id="grupospet" />
+            <view id="naturezas" />
+            <view id="pesquisa" />
+            <view id="pesquisa_edicao" />
+            <view id="pesquisa_insercao" />
+            <view id="pesquisa_visualizacao" />
+            <view id="petiano_gerenciamento" />
+            <view id="tutor" />
+            <view id="documentacao"/>
+            <view id="download"/>
+            <view id="equipe_desenvolvimento"/>
+            <view id="fale_conosco"/>
+            <view id="sobre_datapet"/>
+            <view id="sobre_pet"/>
+            <view id="relatorio"/>
+            <view id="relatorio_gerar"/>
+            <view id="403" />
+            <view id="404" />
+        </tutor>
+
+        <aluno>
+            <view id="atividades" />
+            <view id="historico" />
+            <view id="petianos_contatos" />
+            <view id="grupos_contatos" />
+            <view id="aluno" />
+            <view id="alterar_senha"/>
+            <view id="ensino" />
+            <view id="ensino_edicao" />
+            <view id="ensino_insercao" />
+            <view id="ensino_visualizacao" />
+            <view id="extensao" />
+            <view id="extensao_edicao" />
+            <view id="extensao_insercao" />
+            <view id="extensao_visualizacao" />
+            <view id="grupospet" />
+            <view id="naturezas" />
+            <view id="pesquisa" />
+            <view id="pesquisa_edicao" />
+            <view id="pesquisa_insercao" />
+            <view id="pesquisa_visualizacao" />
+            <view id="documentacao"/>
+            <view id="download"/>
+            <view id="equipe_desenvolvimento"/>
+            <view id="fale_conosco"/>
+            <view id="sobre_datapet"/>
+            <view id="sobre_pet"/>
+            <view id="403" />
+            <view id="404" />
+            
+        </aluno>
+
+        <claMembro>
+            <view id="cla" />
+            <view id="alterar_senha"/>
+            <view id="grupo" />
+            <view id="grupo_edicao" />
+            <view id="grupo_insercao" />
+            <view id="grupo_visualizacao" />
+            <view id="grupos_contatos" />
+            <view id="documentacao"/>
+            <view id="download"/>
+            <view id="equipe_desenvolvimento"/>
+            <view id="fale_conosco"/>
+            <view id="sobre_datapet"/>
+            <view id="sobre_pet"/>
+            <view id="cla_busca" />
+            <view id="403" />
+            <view id="404" />
+        </claMembro>
+        
+    </permissoes>
+</root>

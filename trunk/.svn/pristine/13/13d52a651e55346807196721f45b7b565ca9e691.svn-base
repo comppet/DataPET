@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Production</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
+    
+    <!-- Configurando a conexão do banco de dados -->
+    <context-param>
+        <param-name>database.url</param-name>
+        <param-value>jdbc:mysql://localhost:3306/datapet3</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>database.username</param-name>
+        <param-value>datapet</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>database.password</param-name>
+        <param-value>sabugoPodre</param-value>
+    </context-param>
+        
+    <!-- Configurando o Primefaces para não usar a skin padrão. -->
+    <context-param>
+        <param-name>primefaces.SKIN</param-name>
+        <param-value>none</param-value>
+    </context-param>
+
+    <!-- Configurando a zona de fuso-horário -->
+    <context-param>
+        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
+    <!-- Captcha -->
+    <context-param>
+        <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+        <param-value>6LfwZwoAAAAAAEhRyntKF1PBzysAJLzqp2v-GMRR</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+        <param-value>6LfwZwoAAAAAAI-oUHpdvRnkMfu9fXQHxc0P7IBu</param-value>
+    </context-param>
+    
+    <!-- erros -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/faces/404.xhtml</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>403</error-code>
+        <location>/faces/403.xhtml</location>
+    </error-page>
+    
+    <error-page>
+        <exception-type>com.sun.faces.context.FacesFileNotFoundException</exception-type>
+        <location>/faces/404.xhtml</location>
+    </error-page>
+    
+    <error-page>
+        <exception-type>exceptions.PageNotFoundException</exception-type>
+        <location>/faces/404.xhtml</location>
+    </error-page>
+    
+    <error-page>
+        <exception-type>exceptions.ForbiddenException</exception-type>
+        <location>/faces/403.xhtml</location>
+    </error-page>
+    
+    <error-page>
+        <exception-type>exceptions.ForbiddenException</exception-type>
+        <location>/faces/403.xhtml</location>
+    </error-page>
+    
+</web-app>

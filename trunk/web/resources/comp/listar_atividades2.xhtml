@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="managedBean" required="true" />
+        </composite:interface>
+        <composite:implementation>
+            <p style="margin-top:60px; font-weight: bold" align="center">Exibindo atividades realizadas entre:</p>
+            
+
+            <!-- o painel seguinte é exibido somente se o usuário logado for um aluno !-->
+            <h:panelGroup layout="block" rendered="#{session.getAttribute('nivelUsuario') eq 3}">
+                <h:graphicImage
+                    style="margin-top:10px; margin-bottom:20px"
+                    url="imgs_layout/sub_titulo_minhas_atividades.gif"
+                    alt="Minhas atividades"
+                    />
+                <comp:atividades_datatable managedBean="#{cc.attrs.managedBean}" dataArray="#{cc.attrs.managedBean.atividadesDoAluno}" fullAccess="#{true}" />
+                <h:graphicImage
+                    style="margin-top:40px; margin-bottom:20px"
+                    url="imgs_layout/sub_titulo_demais_atividades.gif"
+                    alt="Demais atividades do grupo"
+                />
+                <comp:atividades_datatable managedBean="#{cc.attrs.managedBean}" dataArray="#{cc.attrs.managedBean.atividadesOutrass}" />
+            </h:panelGroup>
+
+            <!-- o painel seguinte é exibido somente se o usuário logado for um tutor !-->
+            <h:panelGroup layout="block" rendered="#{session.getAttribute('nivelUsuario') eq 2}">
+                <comp:atividades_datatable managedBean="#{cc.attrs.managedBean}" dataArray="#{cc.attrs.managedBean.atividades}" fullAccess="#{true}" />
+            </h:panelGroup>
+        </composite:implementation>
+    </h:body>
+</html>
+

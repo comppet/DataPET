@@ -1,0 +1,10 @@
+deploy.ant.properties.file=/home/pedro/.netbeans/6.9/gfv3-864884795.properties
+file.reference.NetBeansProjects-trunk=C:\\Users\\Nayara\\Documents\\NetBeansProjects\\trunk
+file.reference.src-java=/media/FreeAgent Drive/DataPET/src/java
+j2ee.platform.is.jsr109=true
+j2ee.server.home=/home/pedro/glassfish-3.0.1/glassfish
+j2ee.server.instance=[/home/pedro/glassfish-3.0.1/glassfish]deployer:gfv3ee6:localhost:4848
+javac.debug=true
+javadoc.preview=true
+jaxbwiz.endorsed.dirs=/usr/local/netbeans-6.8/ide12/modules/ext/jaxb/api
+user.properties.file=/home/pedro/.netbeans/6.9/build.properties

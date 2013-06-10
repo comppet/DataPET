@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "Atividades de pesquisa" -->
+            <ui:param name="titulo" value="Atividades de pesquisa" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_grupo.gif" width="65" height="60" alt="Petianos" class="titulo_img" />
+                    <h1>Petianos</h1>
+                    <span>Gerencie os petianos de seu grupo</span>
+                </div>
+                <ul class="menu_ger">
+                    <li><img src="imgs_layout/item.gif" width="7" height="7" alt="item" class="item_figura" /><a href="petianos_contatos.xhtml">Lista de contatos</a></li>
+                </ul>
+                <h:form id="form">
+                    <div style="margin-top: 40px; margin-bottom: 40px; text-align: center">
+                        Selecione uma opção ou petiano:
+                        <h:selectOneMenu id="select" value="#{AlunoController.usuario.id}" 
+                                         styleClass="input form_select" style="margin-left:9px"
+                                         valueChangeListener="#{AnotacaoController.idAlunoMudou}">
+                            <f:selectItem itemLabel="Inserir novo petiano" itemValue="0" />
+                            <f:selectItems value="#{AlunoController.treeMap}" />
+                            <p:ajax listener="#{AnotacaoController.updateAnotacoes}"/>
+                            <p:ajax update="dados botoes" listener="#{AlunoController.prepararEdicao}" />
+                        </h:selectOneMenu>
+                    </div>
+
+                    <h:panelGroup id="dados">
+                        <comp:formulario_usuario id="componente" object="#{AlunoController.usuario}" usuario="aluno" fullaccess="true" />
+                    </h:panelGroup>
+
+                    <h:panelGroup id="botoes" layout="block">
+                        <h:panelGroup layout="block" styleClass="painel_campo_sfundo" rendered="#{AlunoController.usuario.id eq 0}">
+                            <div style="float: left">
+                                <p:commandButton value="Salvar" update="select dados growl" 
+                                                 widgetVar="salvar" action="#{AlunoController.salvar}"
+                                                 onclick="salvar.disable(); setVisible('loading')"
+                                                 oncomplete="salvar.enable(); setHidden('loading')" process="@form"/>
+                            </div>
+                            <div id="loading" style="margin-left:87px; padding-top:7px; visibility:hidden">
+                                <comp:ajax_loading ajaxListener="false" />
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" styleClass="painel_campo_sfundo" rendered="#{AlunoController.usuario.id gt 0}">
+                            <p:commandButton value="Salvar" update="select dados botoes growl componente" action="#{AlunoController.editar}"
+                                             rendered="#{AlunoController.usuario.dataSaidaPet eq null}" process="@form"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" styleClass="painel_campo_sfundo">
+                            <p:commandButton value="Desligar" type="button"
+                                             rendered="#{!(AlunoController.usuario.dataSaidaPet eq null)}"
+                                             onclick="confirmationDesligar.show()"/> 
+                        </h:panelGroup>
+                    </h:panelGroup>
+
+
+                </h:form>
+                <h:form id="form2">
+                    <p:confirmDialog message="Tem certeza que pretende desligar o petiano?"
+                                     showEffect="fade" hideEffect="fade"
+                                     header="Excluir petiano" severity="alert" 
+                                     widgetVar="confirmationDesligar">
+                        <p:commandButton value="Sim" update="form"
+                                         actionListener="#{AlunoController.editar}"
+                                         oncomplete="confirmationDesligar.hide()"/>
+                        <p:commandButton value="Não" oncomplete="confirmationDesligar.hide()"
+                                         action="#{AlunoController.usuario.setDataSaidaPet(null)}"
+                                         update="form"/>
+                    </p:confirmDialog>
+
+                    <p:confirmDialog message="Tem certeza que deseja excluir esta anotação permanentemente?"
+                                     showEffect="fade" hideEffect="fade"
+                                     header="Excluir anotação" severity="alert" widgetVar="confirmation">
+                        <p:commandButton value="Sim" 
+                                         update="form growl" 
+                                         oncomplete="confirmation.hide()"
+                                         action="#{AnotacaoController.excluir}"/>
+                        <p:commandButton value="Não" onclick="confirmation.hide()" type="button" />
+                    </p:confirmDialog>
+                </h:form>
+
+                <h:form id="form3">
+                    <p:dialog header="Criar anotação" widgetVar="insert" resizable="false"
+                              width="292" showEffect="fade" hideEffect="fade">
+                        <h:panelGroup id="display_insert" layout="block">
+
+                            <h:panelGrid columns="2" cellpadding="4">
+                                <h:outputText value="Avaliação: " />
+                                <h:selectOneRadio border="0" value="#{AnotacaoController.novaAnotacao.carater}">
+                                    <f:selectItem itemValue="true" itemLabel="Positiva" />
+                                    <f:selectItem itemValue="false" itemLabel="Negativa" />
+                                </h:selectOneRadio>
+                            </h:panelGrid>
+                            <h:inputTextarea style="margin-left:5px; margin-top: 2px; width: 257px; height: 139px"
+                                             styleClass="input" value="#{AnotacaoController.novaAnotacao.texto}"
+                                             required="true"
+                                             requiredMessage="Ocorreu um erro na inserção. A anotação deve conter um texto." />
+                            <div style="width: 100%; text-align: center; float:left; margin-top:10px">
+                                <p:commandButton value="Salvar" action="#{AnotacaoController.salvar}"
+                                                 update="form growl" onclick="insert.hide()" oncomplete="reset()"/>
+                            </div>
+                        </h:panelGroup>
+                    </p:dialog>
+                </h:form>
+                
+                <h:form id="form4" prependId="flase">
+                    <p:dialog header="Anotação" widgetVar="view" resizable="false"
+                              width="292" showEffect="fade" hideEffect="fade">
+                        <h:panelGroup id="display_view" layout="block">
+
+                            <h:panelGrid columns="2" cellpadding="4">
+                                <h:outputText value="Data: " />
+                                <h:outputText value="#{AnotacaoController.anotacao.data}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+
+                                <h:outputText value="Avaliação: " />
+                                <h:selectOneRadio border="0" value="#{AnotacaoController.anotacao.carater}">
+
+                                    <f:selectItem itemValue="true" itemLabel="Positiva" />
+                                    <f:selectItem itemValue="false" itemLabel="Negativa" />
+
+                                </h:selectOneRadio>
+                            </h:panelGrid>
+                            <h:inputTextarea style="margin-left:5px; margin-top: 2px; width: 257px; height: 139px"
+                                             styleClass="input" value="#{AnotacaoController.anotacao.texto}" required="true"
+                                             requiredMessage="Ocorreu um erro na edição. A anotação deve conter um texto."/>
+                            <div style="width: 100%; text-align: center; float:left; margin-top:10px">
+                                <p:commandButton value="Salvar" action="#{AnotacaoController.editar}"
+                                                 update="gerenciamento_anotacoes growl" onclick="view.hide()"/>
+                            </div>
+
+                        </h:panelGroup>
+                    </p:dialog>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

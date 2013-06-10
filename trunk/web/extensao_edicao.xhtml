@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "editar extensao" -->
+            <ui:param name="titulo" value="editar extensao" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+
+                <f:metadata>
+                    <f:viewParam name="id" value="#{ExtensaoController.atividade.id}" required="false" requiredMessage="O id da atividade deve ser passado pela URL" />
+                    <f:event type="preRenderView" listener="#{ExtensaoController.carregarAtividade()}" />
+                </f:metadata>
+
+                <div class="titulo">
+                    <img src="imgs_layout/img_extensao.gif" width="65" height="60" alt="" class="titulo_img" />
+                    <h1>Editar atividade de extensao</h1>
+                    <span>Altere as informações incorretas sobre a atividade extensao selecionada</span>
+                </div>
+                <h:form>
+                    <h:panelGroup style="margin-top: -20px">
+                        <center>
+                            <p:commandButton value="Alterar tipo desta atividade" rendered="#{ExtensaoController.atividade.id gt 0}" 
+                                             onclick="confirmation.show()" />
+                        </center>
+                    </h:panelGroup>
+                    <comp:formulario_atividade managedBean="#{ExtensaoController}" publica="#{true}" />
+                    <div class="painel_campo_sfundo" style="float: left; margin-right: 30px">
+                        <p:commandButton value="Salvar" action="#{ExtensaoController.editar}" ajax="false" />
+                    </div>
+                    <div class="painel_campo_sfundo">
+                        <p:commandButton type="reset" value="Desfazer alterações" ajax="false" />
+                    </div>
+                </h:form>
+                
+                <h:form id="form2">
+                    <p:confirmDialog message="Escolha o novo tipo desta atividade"
+                                     showEffect="fade" hideEffect="fade"
+                                     header="Alterar tipo da atividade" 
+                                     widgetVar="confirmation">
+                        <h:selectOneRadio value="#{ExtensaoController.tipoAtividade}">
+                            <f:selectItem itemValue="#{ExtensaoController.outro1}" itemLabel="#{ExtensaoController.outro1}" />
+                            <f:selectItem itemValue="#{ExtensaoController.outro2}" itemLabel="#{ExtensaoController.outro2}" />
+                        </h:selectOneRadio>
+                        <p:commandButton value="Alterar" 
+                                         action="#{ExtensaoController.alterarTipoAtividade}"
+                                         oncomplete="confirmation.hide()" ajax="false"/>
+                        <p:commandButton value="Cancelar" oncomplete="confirmation.hide()"
+                                         action="#{ExtensaoController.alterarTipoAtividade}"
+                                         update="form2" />
+                    </p:confirmDialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

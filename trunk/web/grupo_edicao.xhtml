@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "editar grupo" -->
+            <ui:param name="titulo" value="editar grupo" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+
+                <f:metadata>
+                    <f:viewParam name="id" value="#{GrupoController.id}" required="true" requiredMessage="O id deve ser passado pela URL." />
+                    <f:event type="preRenderView" listener="#{GrupoController.carregarGrupo()}" />
+                </f:metadata>
+
+                <div class="titulo">
+                    <img src="imgs_layout/img_grupo.gif" width="65" height="60" alt="" class="titulo_img" />
+                    <h1>Editar grupo</h1>
+                    <span>Altere as informações do grupo através dos campos abaixo.</span>
+                </div>
+
+                <h:form>
+                    <p:tabView style="margin-top:30px">
+                        <p:tab title="Dados do grupo">
+                                <comp:formulario_grupo object="#{GrupoController.grupo}" fullaccess="#{true}" />
+                        </p:tab>
+
+                        <p:tab title="Dados do curso" rendered="#{not (GrupoController.grupo.tipo eq 2)}">
+                                <comp:formulario_curso object="#{GrupoController.curso}" />
+                        </p:tab>
+                        <p:tab title="Dados do tutor">
+                            <comp:formulario_usuario object="#{GrupoController.tutor}" usuario="tutor" fullaccess="#{true}" />
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton value="Salvar" action="#{GrupoController.editar}" style="margin-top:30px" ajax="false" />
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

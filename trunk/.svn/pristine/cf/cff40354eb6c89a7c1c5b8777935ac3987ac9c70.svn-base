@@ -1,0 +1,446 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+    margin:0 0 0 0;
+    background-color:#E2E7D1;
+    background-image:url(imgs_layout/fundo.gif);
+    background-position:top;
+    background-repeat:no-repeat;
+    font-family:Verdana, Geneva, sans-serif;
+    font-size:11px;
+    color:#394A3F;
+}
+
+h1{
+    margin-top:2px;
+    margin-bottom:11px;
+    font-family:"century gothic", "lucida grande", "lucida sans", "bitstream vera sans", verdana;
+    font-weight:500;
+    font-size:18px;
+    color: #007299;
+}
+
+h2{
+    font-family:Verdana, Geneva, sans-serif;
+    font-size:12px;
+    font-weight: bold;
+    color:#007299;
+    margin-top:5px;
+    margin-bottom: 10px;
+}
+
+h3{
+    font-family:Verdana, Geneva, sans-serif;
+    font-size:11px;
+    font-weight: bold;
+    color:#007299;
+    margin-top:4px;
+    margin-bottom: 10px;
+}
+
+a:link{
+    color: #007BA4;
+    text-decoration:underline;
+}
+
+a:visited{
+    color: #007BA4;
+    text-decoration:underline;
+}
+
+a:hover{
+    color: #0099CC;
+    text-decoration:underline;
+}
+
+#sitio{
+    width:1000px;
+    margin-top:50px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#topo{
+    width:955px;
+    height:50px;
+    padding-left:20px;
+    padding-right:25px;
+    padding-top:15px;
+    background-image:url(imgs_layout/topo.png);
+    background-repeat:no-repeat;
+    line-height:19px;
+}
+
+#topo_texto{
+    float:right;
+    text-align: right;
+}
+
+#topo_logotipo{
+    margin-top: 5px;
+    border: 0;
+    float:left;
+}
+
+#topo_menu{
+    width: 1000px;
+    height:25px;
+    padding-top:10px;
+    background-image:url(imgs_layout/topo_menu.png);
+    background-repeat:no-repeat;
+    text-align:left;
+}
+
+#topo_menu a:link{
+    font-size:11px;
+    color:#394A3F;
+    text-decoration:none;
+    border:0;
+}
+#topo_menu a:visited{
+    font-size:11px;
+    color:#394A3F;
+    text-decoration:none;
+    border:0;
+}
+
+#topo_menu a:hover{
+    font-size:11px;
+    color:#79A400;
+    text-decoration:none;
+    border:0;
+}
+
+
+#conteudo_bloco{
+    width:1000px;
+    margin-top:28px;
+}
+
+#conteudo{
+    width:100%;
+    min-height: 800px;
+    float:left;
+    background-image:url(imgs_layout/conteudo_meio.png);
+    background-repeat:repeat-y;
+    padding-bottom:40px;
+}
+
+#menu_lateral{
+    width:221px;
+    height:100%;
+    margin-left:18px;
+    float:left;
+}
+.menu_ger{
+    padding-left: 0px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    border-bottom: 1px dotted lightgrey;
+    border-top: 1px dotted lightgrey;
+}
+.menu_ger li{
+    display: inline;
+    padding-right: 20px;
+}
+
+#menu_lateral a:link,
+.menu_ger > li >a:link{
+    font-size:11px;
+    color:#394A3F;
+    text-decoration:none;
+    border:0;
+}
+
+#menu_lateral a:visited,
+.menu_ger > li >a:visited{
+    font-size:11px;
+    color:#394A3F;
+    text-decoration:none;
+    border:0;
+}
+
+#menu_lateral a:hover,
+.menu_ger > li >a:hover{
+    font-size:11px;
+    color:#0099CC;
+    text-decoration:none;
+    border:0;
+}
+
+#separador{
+    width:7px;
+    height:717px;
+    margin-top:30px;
+    float:left;
+}
+
+#conteudo_texto{
+    width:670px;
+    margin-left:35px;
+    padding-top:32px;
+    float:left;
+}
+
+#rodape{
+    width:1000px;
+    height:80px;
+    margin-top:24px;
+    margin-bottom:24px;
+    padding-top:35px;
+    background-image:url(imgs_layout/rodape.png);
+    background-repeat:no-repeat;
+    font-size:10px;
+    text-align:center;
+    line-height:20px;
+    float:left;
+}
+
+/* estilo referente ao painel do lado esquerdo */
+#dados{
+    margin-top:14px;
+    margin-bottom:9px;
+    line-height:18px;
+}
+
+.texto_verde{
+    font-weight:bold;
+    color:#79A400;
+}
+
+.texto_vermelho{
+    font-size: 12px;
+    color:red;
+    margin-top:-15px;
+    position: absolute;
+}
+
+.titulo_painel{
+    margin-top:35px;
+}
+
+.item_figura{
+    margin-right:7px;
+}
+
+.opcao{
+    margin-top:15px;
+}
+/* fim */
+	
+.item_menu_topo{
+    margin-left:32px;
+    margin-right:6px;
+}
+
+.titulo{
+    height:60px;
+    margin-bottom:25px;
+}
+
+.titulo_img{
+    margin-right:14px;
+    float:left;
+}
+
+.ultimo_paragrafo{
+    margin-bottom:60px;
+}
+
+.erro{
+    color:#CC0000;
+}
+
+/* estilo para a apresentação dos datasets */
+
+.inserir{
+    height: 20px;
+    background-image: url("imgs_layout/inserir.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-top: 6px;
+    padding-left: 38px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.linha_titulo{
+    background-color:#D3DADC;
+    font-weight:bold;
+    text-align: left;
+    height: 20px;
+}
+
+.linha_a{
+    background-color:#DEF0FE;
+    height: 18px;
+}
+
+.linha_b{
+    background-color:#E9ECED;
+    height: 18px;
+}
+
+.linha_hover{
+    background-color:#D8FED6;
+    height: 18px;
+}
+
+.img_operacao{
+    margin-right: 15px;
+    float:left;
+}
+
+/* estilo para o formulário */
+
+.painel_campo_sfundo{
+    margin-top:30px;
+}
+
+.painel_campo{
+    margin-top:8px;
+    padding:8px;
+    background-color:#F3F5F5;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #B5BFBF;
+}
+
+.campo_formulario{
+    height:16px;
+    /*border-width:1px;
+    border-style:solid;
+    border-color:#ABC6C9;*/
+    padding-left:5px;
+    padding-right:5px;
+    font-family:Verdana, Geneva, sans-serif;
+    font-size:11px;
+}
+
+.campo_formulario_textarea{
+    /*border-width:1px;
+    border-style:solid;
+    border-color:#ABC6C9;*/
+    padding:5px;
+    font-family:Verdana, Geneva, sans-serif;
+    font-size:11px;
+}
+
+.campo_formulario_select{
+    min-width: 150px;
+    /*height:18px;
+    border-width:1px;
+    border-style:solid;
+    border-color:#ABC6C9;*/
+    font-family:Verdana, Geneva, sans-serif;
+    font-size:11px;
+}
+
+.linha_inteira{
+    width:636px;
+}
+
+.label_top{
+    margin-bottom: 10px;
+}
+
+.form_login{
+    width:185px;
+    margin-top: 10px;
+}
+
+.dtpet_item{
+    background-image: url(imgs_layout/dtpet_item.gif);
+    background-repeat: no-repeat;
+    height: 17px;
+    padding-left: 26px;
+}
+
+.input{
+    font-family:Verdana, Geneva, sans-serif;
+    font-size:11px;
+    color:#394A3F;
+    border-width:1px;
+    border-style:solid;
+    border-color:#ABC6C9;
+}
+
+.form_tabela{
+    padding-left:2px;
+    width:430px;
+    height:18px;
+}
+
+.form_paragrafo{
+    width:580px;
+}
+
+.form_select{
+    width:185px;
+    height:19px;
+}
+
+.painel_form{
+    margin-top: 25px;
+}
+
+.numerico_aumentar{
+    width:9px;
+    height:11px;
+    background-image: url(imgs_layout/aumentar.gif);
+}
+
+.numerico_aumentar a:hover{
+    width:9px;
+    height:11px;
+    background-image: url(imgs_layout/aumentar_hover.gif);
+}
+
+/*
+    CSS da página "equipe de sesenvolvimento"
+*/
+
+.equipe_quadro{
+    width: 321px;
+    height: 76px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #DBEDF9;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-top: 22px;
+}
+
+.equipe_detalhe_foto{
+    width: 3px;
+    height: 76px;
+    background-color: #DBEDF9;
+    margin-left:1px;
+    margin-right: 1px;
+}
+
+.equipe_titulo{
+    font-family: "century gothic", "lucida grande", "lucida sans", "bitstream vera sans", verdana;
+    font-size: 13px;
+    color: #007299;
+    width: 218px;
+    height: 20px;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #DBEDF9;
+    padding-left: 4px;
+    padding-top: 1px;
+    margin-bottom: 4px;
+    margin-left: 1px;
+    margin-right: 1px;
+    background-image: url(imgs_layout/fundo_quadro_equipe.jpg);
+    background-repeat: repeat-x;
+}
+
+.equipe_texto{
+    width: 214px;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-size: 10px;
+}

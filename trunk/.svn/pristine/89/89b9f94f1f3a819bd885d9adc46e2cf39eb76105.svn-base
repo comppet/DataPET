@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+
+     <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "Outros Grupos" -->
+            <ui:param name="titulo" value="grupo" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_grupo.gif" width="65" height="60" alt="" class="titulo_img" />
+                    <h1>Lista de contatos - Grupos PET</h1>
+                    <span>Se informe sobre as formas de contactar os outros grupos PET de sua instituição</span>
+                </div>
+                <h:form>
+                    <p:dataTable id="grupos" value="#{GrupoController.gruposAtivos}" var="g"
+                                 selection="#{GrupoController.gruposSelecionados}" style="margin-top: 35px">
+                        <p:column selectionMode="multiple" rendered="#{session.getAttribute('nivelUsuario') eq 2 or session.getAttribute('nivelUsuario') eq 1}" />
+
+                        <!-- Sigla -->
+                        <p:column>
+                            <f:facet name="header">
+                                    <h:outputText value="Nome" />
+                            </f:facet>
+                            <h:outputText value="#{g.sigla}" />
+                        </p:column>
+
+                        <!-- Site -->
+                        <p:column>
+                            <f:facet name="header">
+                                    <h:outputText value="Site" />
+                            </f:facet>
+                            <a href="http://#{g.site}" target="_blank">
+                                <h:outputText value="#{g.site}" />
+                            </a>
+                        </p:column>
+
+                        <!-- Telefone -->
+                        <p:column>
+                            <f:facet name="header">
+                                    <h:outputText value="Telefone" />
+                            </f:facet>
+                            <h:outputText value="#{g.telefone}"/>
+                        </p:column>
+
+                         <!-- Tutor -->
+                        <p:column>
+                            <f:facet name="header">
+                                    <h:outputText value="Tutor" />
+                            </f:facet>
+                            <h:outputText value="#{g.tutor.nome}"/>
+                        </p:column>
+
+                         <!-- E-mail -->
+                        <p:column>
+                            <f:facet name="header">
+                                    <h:outputText value="E-mail do Tutor" />
+                            </f:facet>
+                                <h:outputText value="#{g.tutor.email}" />
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <div style="margin-top: 30px; text-align: center">
+                    <p:commandButton value="Enviar e-mail para os tutores dos grupos selecionados"
+                                     image="ui-icon ui-icon-mail-closed" update="email_dialogue" oncomplete="email.show()"
+                                     rendered="#{session.getAttribute('nivelUsuario') eq 2 or session.getAttribute('nivelUsuario') eq 1}" />
+                    </div>
+                </h:form>
+
+                <p:dialog id="email_dialogue" header="Enviar e-mail" widgetVar="email"
+                          resizable="false" width="485" showEffect="fade" hideEffect="fade"
+                          rendered="#{session.getAttribute('nivelUsuario') eq 2 or session.getAttribute('nivelUsuario') eq 1}">
+                    <h:panelGroup rendered="#{not empty GrupoController.gruposSelecionados}">
+                        <h:form>
+                            <comp:formulario_email nome="false" email="false"
+                                                   messageStyle="height:150px; width: 460px"
+                                                   inputTextStyle="width:388px" />
+                            <div style="text-align: center; margin-top: 20px">
+
+                                <!-- botão para os tutores -->
+                                <p:commandButton value="Enviar mensagem" action="#{EmailController.enviaEmail}"
+                                                 widgetVar="enviar" onclick="enviar.disable()" rendered="#{session.getAttribute('nivelUsuario') eq 2}"
+                                                 oncomplete="email.hide(); enviar.enable()" update="email_dialogue growl">
+                                    <f:setPropertyActionListener value="#{session.getAttribute('usuario').nome}" target="#{EmailController.nome}" />
+                                    <f:setPropertyActionListener value="#{session.getAttribute('usuario').email}" target="#{EmailController.origem}" />
+                                    <f:setPropertyActionListener value="#{GrupoController.emailsSelecionados}" target="#{EmailController.destinatarios}" />
+                                </p:commandButton>
+
+                                <!-- botão para os CLAs -->
+                                <p:commandButton value="Enviar mensagem" action="#{EmailController.enviaEmail}"
+                                                 widgetVar="enviar" onclick="enviar.disable()"
+                                                 rendered="#{session.getAttribute('nivelUsuario') eq 1}"
+                                                 oncomplete="email.hide(); enviar.enable()" update="email_dialogue growl">
+                                    <f:setPropertyActionListener value="CLA" target="#{EmailController.nome}" />
+                                    <f:setPropertyActionListener value="#{session.getAttribute('usuario').email}" target="#{EmailController.origem}" />
+                                    <f:setPropertyActionListener value="#{GrupoController.emailsSelecionados}" target="#{EmailController.destinatarios}" />
+                                </p:commandButton>
+
+                                <div style="float:right"><comp:ajax_loading ajaxListener="true" /></div>
+                            </div>
+                        </h:form>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{empty GrupoController.gruposSelecionados}">
+                        <h:outputText value="Por favor, selecione pelo menos um grupo." />
+                    </h:panelGroup>
+                </p:dialog>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

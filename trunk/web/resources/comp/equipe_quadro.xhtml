@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+    <h:head>
+        <title>Formulario de inserção de grupo</title>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="nome" required="true" />
+            <composite:attribute name="foto" required="false" default="imgs_layout/equipe/desconhecido.jpg" />
+            <composite:attribute name="texto" required="true" />
+            <composite:attribute name="align" required="false" default="left" />
+            <composite:attribute name="link" required="false" />
+        </composite:interface>
+        <composite:implementation>
+            <!-- Quadro com link para página externa -->
+            <h:panelGroup rendered="#{not empty cc.attrs.link}">
+                <div class="equipe_quadro" style="cursor:pointer; float:#{cc.attrs.align}" onClick="window.open('#{cc.attrs.link}', '_blank');">
+                    <!-- foto -->
+                    <div class="equipe_detalhe_foto" style="float:#{cc.attrs.align}" />
+                    <img src="#{cc.attrs.foto}" width="91px" height="76px" alt="#{cc.attrs.nome}" style="float:#{cc.attrs.align}" />
+                    <!-- título -->
+                    <h:panelGroup layout="block" styleClass="equipe_titulo" style="float:right" rendered="#{cc.attrs.align eq 'left'}">
+                        <h:outputText value="#{cc.attrs.nome}" />
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="equipe_titulo" style="float:left" rendered="#{cc.attrs.align eq 'right'}">
+                        <h:outputText value="#{cc.attrs.nome}" />
+                    </h:panelGroup>
+                    <!-- texto -->
+                    <h:panelGroup styleClass="equipe_texto" style="float:right" rendered="#{cc.attrs.align eq 'left'}">
+                        <h:outputText value="#{cc.attrs.texto}" />
+                    </h:panelGroup>
+                    <h:panelGroup styleClass="equipe_texto" style="float:left" rendered="#{cc.attrs.align eq 'right'}">
+                        <h:outputText value="#{cc.attrs.texto}" />
+                    </h:panelGroup>
+                </div>
+            </h:panelGroup>
+            
+            <!-- Quadro sem link para página externa -->
+            <h:panelGroup rendered="#{empty cc.attrs.link}">
+                <div class="equipe_quadro" style="float:#{cc.attrs.align}">
+                    <!-- foto -->
+                    <div class="equipe_detalhe_foto" style="float:#{cc.attrs.align}" />
+                    <img src="#{cc.attrs.foto}" width="91px" height="76px" alt="#{cc.attrs.nome}" style="float:#{cc.attrs.align}" />
+                    <!-- título -->
+                    <h:panelGroup layout="block" styleClass="equipe_titulo" style="float:right" rendered="#{cc.attrs.align eq 'left'}">
+                        <h:outputText value="#{cc.attrs.nome}" />
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="equipe_titulo" style="float:left" rendered="#{cc.attrs.align eq 'right'}">
+                        <h:outputText value="#{cc.attrs.nome}" />
+                    </h:panelGroup>
+                    <!-- texto -->
+                    <h:panelGroup styleClass="equipe_texto" style="float:right" rendered="#{cc.attrs.align eq 'left'}">
+                        <h:outputText value="#{cc.attrs.texto}" />
+                    </h:panelGroup>
+                    <h:panelGroup styleClass="equipe_texto" style="float:left" rendered="#{cc.attrs.align eq 'right'}">
+                        <h:outputText value="#{cc.attrs.texto}" />
+                    </h:panelGroup>
+                </div>
+            </h:panelGroup>
+        </composite:implementation>
+    </h:body>
+</html>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="managedBean" required="true" />
+        </composite:interface>
+        <composite:implementation>
+            <p:dataTable id="instituicoes" value="#{cc.attrs.managedBean.instituicoes}"
+                         var="a" rendered="#{not empty cc.attrs.managedBean.instituicoes}">
+
+
+                <!-- Nome -->
+                <p:column>
+                    <f:facet name="header">
+                            <h:outputText value="Instituição" />
+                    </f:facet>
+                    <h:outputText value="#{a.nome}" />
+                </p:column>
+
+                <!-- Sigla -->
+                <p:column>
+                    <f:facet name="header">
+                            <h:outputText value="Sigla" />
+                    </f:facet>
+                    <h:outputText value="#{a.sigla}" />
+                </p:column>
+
+                <!-- Operacoes -->
+                <p:column style="width:32px" >
+                        <p:button outcome="instituicao_edicao?faces-redirect=true"
+                                  image="ui-icon ui-icon-pencil"
+                                  alt="visualizar, editar" title="visualizar, editar">
+                            <f:param name="id" value="#{a.idAsString}" />
+                        </p:button>
+                </p:column>      
+            </p:dataTable>
+
+
+        </composite:implementation>
+    </h:body>
+</html>

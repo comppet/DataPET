@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "Página do administrador" -->
+            <ui:param name="titulo" value="Página do administrador" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_meus_dados.gif" width="65" height="60" alt="Alterar Senha" class="titulo_img" />
+                    <h1>Alterar senha</h1>
+                </div>
+                <h:form>
+
+                    <h:panelGrid id="senhas" style="margin-left:-9px" cellpadding="9px" columns="2">
+
+                        <h:outputText value="*Senha atual: "/>
+                        <h:inputSecret id="senhaAtual" value="#{LoginController.senha}" size="30" required="true"  styleClass="input form_tabela"
+                                       requiredMessage="O campo senha é obrigatório"/>
+
+                        <h:outputText value="*Nova senha: "/>
+                        <h:inputSecret id="senhaNova" value="#{LoginController.senhaNova}" required="true" maxlength="30" styleClass="input form_tabela"
+                                       requiredMessage="Campo obrigatório"/>
+
+                        <h:outputText value="*Confirmar senha: "/>
+                        <h:inputSecret id="senhaConfirmada" value="#{LoginController.senhaConfirmada}" required="true" maxlength="30" styleClass="input form_tabela"
+                                       requiredMessage="Campo obrigatório"/>
+
+                    </h:panelGrid>
+                    
+                    <p:commandButton id="confirma" style="margin-top:18px" update="@form growl" value="Alterar" action="#{LoginController.alterarSenha}" />
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

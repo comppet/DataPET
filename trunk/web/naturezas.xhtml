@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <title>Gerenciar naturezas</title>
+    </h:head>
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "gerenciar naturezas" -->
+            <ui:param name="titulo" value="gerenciar naturezas" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_natureza.gif" width="65" height="60" alt="" class="titulo_img" />
+                    <h1>Gerenciar naturezas</h1>
+                    <span>Utilize o menu abaixo para inserir, excluir ou alterar o nome de uma natureza.</span>
+                </div>
+                <h:form>
+                    <h:panelGroup id="natureza">
+                        <div align="center" style="margin-top: 40px; margin-bottom: 40px">
+                            Selecione uma opção ou natureza:
+                            <h:selectOneMenu id="seletor" value="#{NaturezaController.natureza.id}" styleClass="input form_select" style="margin-left:9px">
+                                <f:selectItem itemLabel="Cadastrar nova natureza" itemValue="0" />
+                                <f:selectItems value="#{NaturezaController.treeMap}" />
+                                <p:ajax update="natureza botoes" listener="#{NaturezaController.prepararEdicao}" />
+                            </h:selectOneMenu>
+                        </div>
+
+                       * Nome:
+                        <h:inputText value="#{NaturezaController.natureza.nome}"
+                                     requiredMessage="Preencha o campo 'nome' antes de inserir ou editar uma natureza."
+                                     required="true" maxlength="80" style="width:520px; margin-left:9px"
+                                     styleClass="input form_tabela" />
+                    </h:panelGroup>
+
+                    <h:panelGroup id="botoes" layout="block">
+                        <div class="painel_campo_sfundo" style="float: left">
+                            <p:commandButton value="Salvar" update="natureza growl" action="#{NaturezaController.salvar}" rendered="#{NaturezaController.natureza.id eq 0}" />
+                        </div>
+                        <div class="painel_campo_sfundo" style="float: left">
+                            <p:commandButton value="Salvar" onclick="confirmationEditar.show()" rendered="#{not (NaturezaController.natureza.id eq 0)}" />
+                        </div>
+                        <div class="painel_campo_sfundo" style="float: left; margin-left: 22px">
+                            <p:commandButton value="Excluir" onclick="confirmationExcluir.show()" disabled="#{NaturezaController.natureza.id eq 0}" />
+                        </div>
+                    </h:panelGroup>
+
+                    <p:confirmDialog message="Mudar o nome desta natureza implica em mudar a natureza de todas atividades a esta ligada.
+                                             Tem certeza que deseja continuar com a operação?"
+                                             showEffect="fade" hideEffect="fade"
+                                             header="Editar natureza" severity="alert" widgetVar="confirmationEditar">
+                        <p:commandButton value="Sim" update="natureza growl botoes" oncomplete="confirmationEditar.hide();" action="#{NaturezaController.editar}" />
+                        <p:commandButton value="Não" onclick="confirmationEditar.hide()" type="button" />
+                    </p:confirmDialog>
+
+                    <p:confirmDialog message="Excluir esta natureza implica em mudar a natureza de todas atividades a esta ligada para 'outra'.
+                                             Tem certeza que deseja continuar com a operação?"
+                                             showEffect="fade" hideEffect="fade"
+                                             header="Excluir natureza" severity="alert" widgetVar="confirmationExcluir">
+                        <p:commandButton value="Sim" update="natureza growl botoes" oncomplete="confirmationExcluir.hide();" action="#{NaturezaController.excluir}" />
+                        <p:commandButton value="Não" onclick="confirmationExcluir.hide()" type="button" />
+                    </p:confirmDialog>
+                    
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

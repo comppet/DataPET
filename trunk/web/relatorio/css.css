@@ -1,0 +1,130 @@
+body{
+    font-family: Arial;
+}
+
+/**********************
+
+Parte dos titulos superiores
+
+
+************************/
+h1{
+	font-size: 10.5pt;
+	font-weight: bold;
+}
+
+.td{
+	font-size:10pt;
+}
+
+/*****************************
+
+Parte dos dados
+
+*****************************/
+
+
+h2{
+	font-size: 12pt;
+	font-weight: bold;
+        margin-bottom: 0;
+        padding-bottom: 0;
+}
+
+h3{
+	font-size: 10pt;
+        margin-top:20px;
+        margin-bottom:20px;
+        font-weight: normal;
+}
+
+h4{
+	font-size: 10pt;
+        margin-top:35px;
+        margin-bottom:20px;
+}
+
+/* atividades */
+
+.atividade{
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 50px;
+    page-break-after: always;
+}
+
+.item_atividade{
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.descricao{
+    font-size: 8pt;
+}
+
+.tabela_mes{
+    border-left:none;
+    border-right:none;
+    border-bottom:none;
+    border-top-width: 1px;
+    border-top-style:solid;
+    border-top-color:black;
+}
+
+.coluna_mes{
+    border-left:none;
+    border-top:none;
+    border-bottom:none;
+    border-right-width: 1px;
+    padding: 1px;
+    border-right-style: solid;
+    border-right-color: black;
+}
+
+.tabela{
+    border-width: 1px;
+    border-spacing: 0px;
+    border-style: solid;
+    border-color: black;
+    border-collapse: collapse;
+    text-align: left;
+    margin-top: 40px;
+    page-break-inside: avoid;
+    page-break-after: always;
+}
+
+/* tabela de alunos */
+
+.tabela_aluno {
+	border-width: 0px;
+	border-spacing: 0px;
+	border-style: solid;
+	border-color: gray;
+	border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+        margin-top: 15px;
+}
+
+.tabela_aluno th {
+	border-width: thin;
+	padding: 0px;
+	border-style: inset;
+	border-color: black;
+	background-color: white;
+}
+
+.tabela_aluno td {
+	border-width: thin;
+	padding: 0px;
+	border-style: inset;
+	border-color: black;
+	background-color: white;
+        width: 20%;
+}
+
+
+
+
+
+

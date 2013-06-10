@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>DataPET</title>
+        <link rel="shortcut icon" type="image/ico" href="imgs_layout/datapeticon.gif" />
+        <link href="estilo.css" rel="stylesheet" type="text/css" />
+        <link type="text/css" rel="stylesheet" href="primefaces/skin.css" />
+        <script type="text/javascript" src="javascript/basico.js" charset="utf-8"></script>
+    </h:head>
+    <h:body>
+        <f:view contentType="text/html">
+            <p:growl id="growl" life="20000" />
+            <div id="sitio">      
+                <div id="topo">
+                    <h:form>
+                        <h:commandLink action="index">
+                            <img id="topo_logotipo" src="imgs_layout/topo_logotipo.png" width="174" height="30" alt="DataPET" />
+                        </h:commandLink>
+                    </h:form>
+                    <div id="topo_texto">
+                        Bem vindo,<br />
+                        <h:outputText value="#{LoginController.data}">
+                            <f:convertDateTime dateStyle="long" locale="pt,BR" />
+                        </h:outputText>
+                    </div>
+                </div>
+                <div id="topo_menu">
+                    <img src="imgs_layout/item.gif" class="item_menu_topo" width="7" height="7" alt="item" /><h:link outcome="sobre_datapet" value="Sobre o DataPET" />
+                    <img src="imgs_layout/item.gif" class="item_menu_topo" width="7" height="7" alt="item" /><h:link outcome="sobre_pet" value="Sobre o PET" />
+                    <img src="imgs_layout/item.gif" class="item_menu_topo" width="7" height="7" alt="item" /><h:link outcome="equipe_desenvolvimento" value="Equipe de desenvolvimento" />
+                    <img src="imgs_layout/item.gif" class="item_menu_topo" width="7" height="7" alt="item" /><h:link outcome="download" value="Download" />
+                    <img src="imgs_layout/item.gif" class="item_menu_topo" width="7" height="7" alt="item" /><h:link outcome="documentacao" value="Documentação" />
+                    <img src="imgs_layout/item.gif" class="item_menu_topo" width="7" height="7" alt="item" /><h:link outcome="fale_conosco" value="Fale conosco" />
+                    <h:form style="position:relative;top:-13.5px;left:835px;" rendered="#{not(session.getAttribute('nivelUsuario') eq 4)}">
+                        <img src="imgs_layout/item.gif" width="7" height="7" alt="item" class="item_menu_topo" />
+                        <h:commandLink value="Sair" action="#{LoginController.logout}" rendered="#{not(session.getAttribute('nivelUsuario') eq 4)}"/>
+                    </h:form>
+                </div>
+
+                <div id="conteudo_bloco">
+                    <img src="imgs_layout/conteudo_topo.png" width="1000" height="9" alt="inicio do conteudo" />
+                    <div id="conteudo">
+                        <!-- inclui o painel do lado esquerdo da página. O menu. -->
+                        <div id="menu_lateral"><ui:include src="#{SessionController.painel}" /></div>
+                        <div id="separador"><img src="imgs_layout/separador.png" width="7" height="717" alt="separador" /></div>
+                        <!-- isto é apena um template, a tag seguinte informa que esta parte deverá ser preenchida por algum conteúdo -->
+                        <div id="conteudo_texto"><ui:insert name="conteudo"/></div>
+                    </div>
+                    <img src="imgs_layout/conteudo_rodape.png" width="1000" height="11" alt="fim do conteudo" />
+                </div>
+                <div id="rodape">&copy;2011. Licenciado sobre as condições GNU/GPL. Desenvolvido pelo CompPET,<br />PET Ciência da Computação, Universidade Federal de Uberlândia.</div>
+            </div>
+        </f:view>
+        
+            <h:form>
+                <!-- 
+                    O iddleMonitor e uma Dialog que e aberta apos uma espera ociosa no sistema. O tempo de espera e de 
+                    900000ms (15 * 60 * 1000ms) = 15minutos.
+                    Ela funciona da seguinte maneira: Ela é iniciada quando um usuario faz acesso ao sistema.
+                    Depois disso, ela usa o navegador para contar o tempo em que o sistema esteve ocioso (sistema = pagina datapet)
+                    Crio uma dialog quando os 15minutos foram atingidos e adiciono um botao. Esse botao chama uma funcao de logout.
+                    Pedido por: Pedro Augusto
+                    Criado: Pablo Henrique.
+                -->
+                <p:idleMonitor timeout="900000" onidle="idleDialog.show()" rendered="#{not(session.getAttribute('nivelUsuario') eq 4)}"/>
+                <p:dialog draggable="false" closable="false" header="Atencão! Inatividade registrada" resizable="false" widgetVar="idleDialog" modal="true" width="330">  
+                    <h:outputText value="Devido a inatividade da página, você foi desconectado automaticamente." style="text-align: justify;" /> 
+                    <br />
+                    <p:commandButton id="confirma-iddle" style="margin-top:18px; margin-left:130px;" update="@form growl" value="OK" onclick="idleDialog.close();" action="#{LoginController.logout}"/>
+                </p:dialog>
+            </h:form>
+            
+    </h:body>
+</html>

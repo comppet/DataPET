@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "página inicial" -->
+            <ui:param name="titulo" value="equipe de desenvolvimento" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo" style="margin-bottom: 25px">
+                    <img src="imgs_layout/img_equipe_atual.png" width="65" height="64" alt="Equipe atual" class="titulo_img" />
+                    <h1>Desenvolvedores atuais</h1>
+                    <span>Desenvolvedores da versão 3.0 do DataPET</span>
+                </div>
+                
+                <comp:equipe_quadro nome="Autran Macêdo (Orientador)" foto="imgs_layout/equipe/autran.jpg"
+                                    link="http://www.comppet.ufu.br/content/petianos/101"
+                                    texto="Autran é o orientador do DataPET e tutor do PET desde 2008." />
+                
+                <comp:equipe_quadro nome="Tiago Peres França (Líder)" foto="imgs_layout/equipe/tiago.jpg"
+                                    link="http://www.comppet.ufu.br/content/petianos/97" align="right"
+                                    texto="Participou da finalização do DataPET 2.1 e trabalha na criação do DataPET 3.0." />
+                
+                <comp:equipe_quadro nome="Douglas Antunes Rocha" foto="imgs_layout/equipe/douglas.jpg"
+                                    link="http://www.comppet.ufu.br/content/petianos/162"
+                                    texto="Participa do desenvolvimento do DataPET 3.0 desde o segundo semestre de 2010." />
+                
+                <comp:equipe_quadro nome="Nayara Cardoso Dias" foto="imgs_layout/equipe/nayara.jpg"
+                                    link="http://www.comppet.ufu.br/content/petianos/191" align="right"
+                                    texto="Participa do desenvolvimento do DataPET 3.0 desde o segundo semestre de 2010." />
+                
+                <comp:equipe_quadro nome="Pedro Augusto Silva Reis" foto="imgs_layout/equipe/pedro.jpg"
+                                    link="http://www.comppet.ufu.br/content/petianos/163"
+                                    texto="Participa do desenvolvimento do DataPET 3.0 desde o segundo semestre de 2010." />
+                
+                <comp:equipe_quadro nome="Tassyo Tchesco Silva" foto="imgs_layout/equipe/tassyo.jpg"
+                                    link="http://www.comppet.ufu.br/content/petianos/192" align="right"
+                                    texto="Participa do desenvolvimento do DataPET 3.0 desde o segundo semestre de 2010." />
+                
+                <div class="titulo" style="padding-top: 55px; margin-bottom: 25px; clear: left">
+                    <img src="imgs_layout/img_equipe.png" width="65" height="64" alt="Equipe anterior" class="titulo_img" />
+                    <h1>Desenvolvedores anteriores</h1>
+                    <span>Desenvolvedores das versões anteriores do DataPET em ordem decrescente de tempo</span>
+                </div>
+
+                <comp:equipe_quadro nome="Eduardo Silva Rosa" foto="imgs_layout/equipe/eduardo.jpg"
+                                    link="http://www.comppet.ufu.br/content/petianos/94"
+                                    texto="Esteve envolvido com o DataPET desde o início de início de 2008, participando das versões 2, 2.1 e 3." />
+
+                <comp:equipe_quadro nome="Daniel Alves de Sousa" foto="imgs_layout/equipe/daniel.jpg"
+                                    link="http://www.comppet.ufu.br/content/petianos/88" align="right"
+                                    texto="Participou da elaboração do projeto do DataPET 3." />
+
+                <comp:equipe_quadro nome="Thadeu Knychala Tucci" foto="imgs_layout/equipe/thadeu.jpg"
+                                    link="http://www.comppet.ufu.br/content/petianos/96"
+                                    texto="Trabalhou no DataPET 2.0 e 2.1. Esteve envolvido com o projeto no ano de 2008." />
+                
+                <comp:equipe_quadro nome="Arthur Cunha Costa" foto="imgs_layout/equipe/arthur.jpg"
+                                    link="http://www.comppet.ufu.br/content/petianos/86" align="right"
+                                    texto="Trabalhou no DataPET 2.0 e 2.1. Esteve envolvido com o projeto no ano de 2008. " />
+                
+                <comp:equipe_quadro nome="Bruno Augusto Romes de Lima" foto="imgs_layout/equipe/bruno.jpg"
+                                    link="http://www.comppet.ufu.br/content/petianos/87"
+                                    texto="Participou do desenvolvimento do DataPET nas 3ª e 4ª fase do projeto." />
+                
+                <comp:equipe_quadro nome="Éderson Machado de Lima" foto="imgs_layout/equipe/ederson.jpg"
+                                    link="http://www.comppet.ufu.br/content/petianos/93" align="right"
+                                    texto="Participou do desenvolvimento do DataPET nas 3ª e 4ª fase do projeto." />
+                
+                <comp:equipe_quadro nome="Raiza Moraes Sousa" foto="imgs_layout/equipe/raiza.jpg"
+                                    link="http://www.comppet.ufu.br/content/petianos/158"
+                                    texto="Participou do desenvolvimento do DataPET nas 3ª e 4ª fase do projeto." />
+                
+                <comp:equipe_quadro nome="Fernando Alves Lorena Reiz" align="right"
+                                    texto="Trabalhou junto ao professor Autran Macêdo no desenvolvimento da segunda fase do DataPET." />
+                
+                <comp:equipe_quadro nome="Gil Victor Teixeira Pinto" foto="imgs_layout/equipe/gil_victor.jpg"
+                                    texto="Trabalhou junto ao professor Autran Macêdo no desenvolvimento da segunda fase do DataPET." />
+                
+                <comp:equipe_quadro nome="Marco Antônio Teixeira Jr." align="right"
+                                    texto="Trabalhou junto ao professor Autran Macêdo no desenvolvimento da segunda fase do DataPET." />
+                
+                <comp:equipe_quadro nome="Luis F. Faina (Orientador)" foto="imgs_layout/equipe/faina.jpg"
+                                    link="http://www.facom.ufu.br/~faina/"
+                                    texto="O professor Faina foi orientador do DataPET na fase inicial do projeto." />
+                
+                <comp:equipe_quadro nome="Thiego Resende Bisco" foto="imgs_layout/equipe/thiego.jpg" align="right"
+                                    texto="Junto ao professor Luís Fernando Faina, Thiego participou do desenvolvimento inicial do DataPET." />
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

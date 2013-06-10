@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <title>Formulario de email</title>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="nome" type="java.lang.Boolean" required="false" default="#{true}" />
+            <composite:attribute name="email" type="java.lang.Boolean" required="false" default="#{true}" />
+            <composite:attribute name="assunto" type="java.lang.Boolean" required="false" default="#{true}" />
+            <composite:attribute name="messageStyle" required="false" />
+            <composite:attribute name="inputTextStyle" required="false" />
+        </composite:interface>
+        <composite:implementation>
+            <h:panelGrid style="margin-left:-9px; margin-top: -9px" cellpadding="9px" columns="2">
+                <h:outputText value="Nome:" rendered="#{cc.attrs.nome}" />
+                <h:inputText id="nome" value="#{EmailController.nome}"
+                             style="#{cc.attrs.inputTextStyle}"
+                             styleClass="input form_tabela" rendered="#{cc.attrs.nome}" />
+
+                <h:outputText value="* E-mail:" rendered="#{cc.attrs.email}" />
+                <h:inputText id="origem" value="#{EmailController.origem}"
+                             style="#{cc.attrs.inputTextStyle}"
+                             requiredMessage="Ocorreu um erro. O campo'email' é obrigatório."
+                             required="true" styleClass="input form_tabela"
+                             validator="#{EmailValidator.validarEmail}" rendered="#{cc.attrs.email}" />
+
+                <h:outputText value="Assunto:" rendered="#{cc.attrs.assunto}" />
+                <h:inputText id="assunto" value="#{EmailController.assunto}"
+                             style="#{cc.attrs.inputTextStyle}"
+                             styleClass="input form_tabela" rendered="#{cc.attrs.assunto}" />
+            </h:panelGrid>
+            
+            <p>* Mensagem:</p>
+            <h:inputTextarea id="mensagem" value="#{EmailController.mensagem}"
+                             requiredMessage="Ocorreu um erro. O campo 'mensagem' é obrigatório." 
+                             style="#{cc.attrs.messageStyle}"
+                             required="true" styleClass="input form_paragrafo" />
+        </composite:implementation>
+    </h:body>
+</html>

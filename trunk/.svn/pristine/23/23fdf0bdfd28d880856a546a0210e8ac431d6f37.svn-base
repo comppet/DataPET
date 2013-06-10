@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "editar pesquisa" -->
+            <ui:param name="titulo" value="editar pesquisa" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+
+                <f:metadata>
+                    <f:viewParam name="id" value="#{PesquisaController.atividade.id}" required="false" requiredMessage="O id da atividade deve ser passado pela URL" />
+                    <f:event type="preRenderView" listener="#{PesquisaController.carregarAtividade()}" />
+                </f:metadata>
+
+                <div class="titulo">
+                    <img src="imgs_layout/img_pesquisa.gif" width="65" height="60" alt="" class="titulo_img" />
+                    <h1>Editar atividade de pesquisa</h1>
+                    <span>Altere as informações incorretas sobre a atividade de pesquisa selecionada</span>
+                </div>
+                <h:form>
+                    <h:panelGroup style="margin-top: -20px">
+                        <center>
+                            <p:commandButton value="Alterar tipo desta atividade" rendered="#{PesquisaController.atividade.id gt 0}" 
+                                             onclick="confirmation.show()" />
+                        </center>
+                    </h:panelGroup>
+                    <comp:formulario_atividade managedBean="#{PesquisaController}" />
+                    <div class="painel_campo_sfundo" style="float: left; margin-right: 30px">
+                        <p:commandButton value="Salvar" action="#{PesquisaController.editar}" ajax="false" />
+                    </div>
+                    <div class="painel_campo_sfundo">
+                        <p:commandButton type="reset" value="Desfazer alterações" ajax="false" />
+                    </div>
+                </h:form>
+                
+                <h:form id="form2">
+                    <p:confirmDialog message="Escolha o novo tipo desta atividade"
+                                     showEffect="fade" hideEffect="fade"
+                                     header="Alterar tipo da atividade" 
+                                     widgetVar="confirmation">
+                        <h:selectOneRadio value="#{PesquisaController.tipoAtividade}">
+                            <f:selectItem itemValue="#{PesquisaController.outro1}" itemLabel="#{PesquisaController.outro1}" />
+                            <f:selectItem itemValue="#{PesquisaController.outro2}" itemLabel="#{PesquisaController.outro2}" />
+                        </h:selectOneRadio>
+                        <p:commandButton value="Alterar" 
+                                         action="#{PesquisaController.alterarTipoAtividade}"
+                                         oncomplete="confirmation.hide()" ajax="false"/>
+                        <p:commandButton value="Cancelar" oncomplete="confirmation.hide()"
+                                         action="#{PesquisaController.alterarTipoAtividade}"
+                                         update="form2" />
+                    </p:confirmDialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

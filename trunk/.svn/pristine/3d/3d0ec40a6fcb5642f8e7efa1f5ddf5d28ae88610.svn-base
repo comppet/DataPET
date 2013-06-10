@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="managedBean" required="true" />
+        </composite:interface>
+        <composite:implementation>
+            <input type="hidden" name="id" value="0" />
+            
+            <p:dataTable id="grupos" value="#{cc.attrs.managedBean.grupos}"
+                         var="a" rendered="#{not empty cc.attrs.managedBean.grupos}">
+                        
+
+                <!-- Sigla -->
+                <p:column>
+                    <f:facet name="header">
+                            <h:outputText value="Nome" />
+                    </f:facet>
+                    <h:outputText value="#{a.sigla}" />
+                    <h:outputText value=" (desativado)" rendered="#{not a.ativado}" />
+                </p:column>
+
+                <!-- Data de Implantação -->
+                <p:column>
+                    <f:facet name="header">
+                            <h:outputText value="Data de Implantação" />
+                    </f:facet>
+                    <h:outputText value="#{a.implantacao}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </p:column>
+
+                <!-- Operações -->
+                    <p:column style="width:32px" >
+                        <p:button outcome="grupo_edicao" includeViewParams="true" 
+                                  image="ui-icon ui-icon-pencil" alt="editar"
+                                  title="editar">
+                            <f:param name="id" value="#{a.idAsString}"/>
+                        </p:button>
+                        
+                    </p:column>
+
+                    <p:column style="width:32px" >
+                        <p:commandButton oncomplete="motivo.show()"
+                                         image="ui-icon ui-icon-close"
+                                         rendered="#{a.ativado}"
+                                         alt="desativar" title="desativar">
+                            <f:setPropertyActionListener value="#{a}" target="#{GrupoController.grupo}" />
+                        </p:commandButton>
+                        <p:commandButton oncomplete="motivo.show()"
+                                         image="ui-icon ui-icon-check"
+                                         rendered="#{not a.ativado}"
+                                         alt="reativar" title="reativar">
+                            <f:setPropertyActionListener value="#{a}" target="#{GrupoController.grupo}" />
+                        </p:commandButton>
+                    </p:column>
+            </p:dataTable>
+
+                     <p:dialog header="Qual o motivo?" widgetVar="motivo" resizable="false"
+                              width="292" showEffect="fade" hideEffect="fade">
+                        <h:panelGroup id="display_insert" layout="block">
+                            <h:inputTextarea style="margin-left:5px; margin-top: 2px; width: 257px; height: 139px"
+                                             styleClass="input" value="#{GrupoController.motivo}" />
+
+                            <div style="width: 100%; text-align: center; float:left; margin-top:10px">
+                                <p:commandButton value="Confirmar" action="#{GrupoController.alterarStatus}"
+                                                 oncomplete="motivo.hide()" update="growl grupos">
+                                </p:commandButton>
+                            </div>
+                        </h:panelGroup>
+                    </p:dialog>
+
+        </composite:implementation>
+    </h:body>
+</html>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "página do CLA" -->
+            <ui:param name="titulo" value="página do CLA" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_meus_dados.gif" width="65" height="60" alt="Meus Dados" class="titulo_img" />
+                    <h1>Meus Dados</h1>
+                    <span>Por favor, mantenha seus dados atualizados.</span>
+                </div>
+                <ul class="menu_ger">
+                    <li><img src="imgs_layout/item.gif" width="7" height="7" alt="item" class="item_figura" /><a href="alterar_senha.xhtml">Alterar senha</a></li>
+                </ul>
+                <div style="clear:both;"></div>
+                <h:form id="form">
+                    <comp:formulario_usuario object="#{session.getAttribute('usuario')}" usuario="cla" />
+                    <p class="ultimo_paragrafo">
+                        <p:commandButton style="margin-top:18px" update="form growl" value="Salvar" action="#{ClaController.editar}">
+                            <f:setPropertyActionListener value="#{session.getAttribute('usuario')}" target="#{ClaController.usuario}" />
+                        </p:commandButton>
+                    </p>
+                </h:form>
+
+                <div class="titulo" >
+                    <img src="imgs_layout/img_instituicao.gif" width="65" height="60" alt="Minha Instituicao" class="titulo_img" />
+                    <h1>Dados da IES</h1>
+                    <span>Visualise e edite informações sobre sua instituição de ensino.</span>
+                </div>
+                <h:form id="form2">
+                    <comp:formulario_instituicao object="#{session.getAttribute('instituicao')}" fullaccess="false"  />
+                    <p class="ultimo_paragrafo">
+                        <p:commandButton style="margin-top:18px" update="form growl" value="Salvar" action="#{InstituicaoController.editarSimples}" >
+                            <f:setPropertyActionListener value="#{session.getAttribute('instituicao')}" target="#{InstituicaoController.instituicao}" />
+                        </p:commandButton>
+                    </p>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

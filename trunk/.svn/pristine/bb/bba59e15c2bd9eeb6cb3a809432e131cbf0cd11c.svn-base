@@ -1,0 +1,363 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Formulario de gerenciamento de usuários</title>
+
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="object" required="true" />
+            <composite:attribute name="fullaccess" type="java.lang.Boolean" required="false" default="#{false}" />
+            <composite:attribute name="usuario" required="false" />
+        </composite:interface>
+        <composite:implementation>
+            <!-- Contornando bug estranho do id virar null. Isto é uma falha de segurança, através do firebug é possível alterar petianos de outros grupos!!! -->
+            <h:inputHidden value="#{cc.attrs.object.id}" required="false" rendered="#{cc.attrs.input}" />
+
+            <!-- Os comentarios abaixo estao entre as tags <ui:remove> e </ui:remove>, isso se deve ao fato de que, caso contrário,
+            o JSF considera os comentários como elementos do <h:panelGrid> -->
+
+            <h:panelGrid columns="2" cellpadding="9" style="margin-left: -9px">
+
+                <ui:remove><!-- Interlocutor: campo comum a todos os CLAs --></ui:remove>
+                <h:outputText value="* Interlocutor:" rendered="#{cc.attrs.usuario eq 'cla' and ((session.getAttribute('nivelUsuario') eq 5) or (session.getAttribute('nivelUsuario') eq 0))}" />
+                <h:inputText id="interlocutor" value="#{cc.attrs.object.interlocutor}" required="true" maxlength="40"
+                             requiredMessage="Ocorreu um erro. O campo 'interlocutor' é obrigatório."
+                             styleClass="input form_tabela" rendered="#{(cc.attrs.usuario eq 'cla') and ((session.getAttribute('nivelUsuario') eq 0))}" />
+                <h:outputText value="#{cc.attrs.object.interlocutor}" rendered="#{cc.attrs.usuario eq 'cla' and (session.getAttribute('nivelUsuario') eq 5)}" />
+
+                <ui:remove><!-- Nome: campo comum a todos os petianos (tutores e alunos) e membros do CLA --></ui:remove>
+                <h:outputText value="* Nome:" rendered="#{(((cc.attrs.usuario eq 'aluno') or (cc.attrs.usuario eq 'tutor') or ((cc.attrs.usuario eq 'cla'))) and ((session.getAttribute('nivelUsuario') ne 0)))}" />
+                <h:panelGroup rendered="#{(cc.attrs.usuario eq 'aluno') or (cc.attrs.usuario eq 'tutor') or (cc.attrs.usuario eq 'cla')}">
+                    <h:inputText id="nome" value="#{cc.attrs.object.nome}" required="true" maxlength="40" styleClass="input form_tabela"
+                                 requiredMessage="Ocorreu um erro. O campo 'nome' é obrigatório."
+                                 rendered="#{(cc.attrs.fullaccess) and ((cc.attrs.usuario eq 'aluno') or (cc.attrs.usuario eq 'tutor') or (cc.attrs.usuario eq 'cla')) and (session.getAttribute('nivelUsuario') ne 0)}" />
+                    <h:outputText value="#{cc.attrs.object.nome}" rendered="#{not cc.attrs.fullaccess}" />
+                </h:panelGroup>
+
+                <h:outputText value=" " rendered="#{(session.getAttribute('nivelUsuario') eq 0 and (cc.attrs.usuario eq 'cla'))}" />
+
+                <h:outputText value="* Ingresso no CLA:" rendered="#{(cc.attrs.usuario eq 'cla')}" />
+                <h:panelGroup rendered="#{(cc.attrs.usuario eq 'cla')}">
+                    <p:calendar id="data_inicio_cla" value="#{cc.attrs.object.dataIngressoCla}" rendered="#{cc.attrs.fullaccess or (session.getAttribute('nivelUsuario') eq 0)}"
+                                locale="pt_BR" showButtonPanel="true" navigator="true" validator="#{DateValidator.validarUmaData}" required="true"
+                                requiredMessage="Ocorreu um erro. O campo 'ingresso no CLA' é obrigatório.">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </p:calendar>
+                    <h:outputText value="#{cc.attrs.object.dataIngressoCla}" rendered="#{not cc.attrs.fullaccess}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </h:panelGroup>
+
+                <ui:remove><!-- E-mail: campo comum a todos os usuários --></ui:remove>
+                * E-mail:
+                <h:inputText id="email" value="#{cc.attrs.object.email}" required="true" maxlength="254" styleClass="input form_tabela"
+                             requiredMessage="Ocorreu um erro. O campo 'e-mail' é obrigatório."
+                             validator="#{EmailValidator.validarEmail}" />
+
+                <ui:remove><!-- Área: campo comum a todos os tutores --></ui:remove>
+                <h:outputText value="Área:" rendered="#{cc.attrs.usuario eq 'tutor'}" />
+                <h:inputText id="area" value="#{cc.attrs.object.area}" required="false" maxlength="80"
+                             rendered="#{cc.attrs.usuario eq 'tutor'}" styleClass="input form_tabela" />
+
+                <ui:remove><!-- Titulação: campo comum a todos os tutores --></ui:remove>
+                <h:outputText value="Titulação:" rendered="#{(cc.attrs.usuario eq 'tutor')}" />
+                <h:panelGroup rendered="#{(cc.attrs.usuario eq 'tutor')}">
+                    <h:selectOneMenu id="titulacao" value="#{cc.attrs.object.titulacao}" styleClass="input form_select"
+                                     required="false" rendered="#{cc.attrs.fullaccess}">
+                        <f:selectItem itemLabel="" itemValue="Não especificado" />
+                        <f:selectItem itemLabel="Mestre" itemValue="Mestre" />
+                        <f:selectItem itemLabel="Doutor" itemValue="Doutor" />
+                    </h:selectOneMenu>
+                    <h:outputText value="#{cc.attrs.object.titulacao}" rendered="#{not cc.attrs.fullaccess}" />
+                </h:panelGroup>
+
+                <ui:remove><!-- Telefone: campo comum a todos os petianos(tutores e alunos) --></ui:remove>
+                <h:outputText value="Telefone:" rendered="#{((cc.attrs.usuario eq 'aluno') or (cc.attrs.usuario eq 'tutor'))}"/>
+
+
+                <h:panelGroup id="telefone_data_ingresso">
+                    <h:panelGrid columns="3">
+
+                        <p:inputMask id="telefone" value="#{cc.attrs.object.telefone}" mask="(99)9999-9999"
+                                     rendered="#{((cc.attrs.usuario eq 'aluno') or (cc.attrs.usuario eq 'tutor'))}" size="15"/>
+
+                        <ui:remove><!-- Data de ingresso na instituição: campo comum a todos os alunos --></ui:remove>
+                        <h:outputText value="* Ingresso na instituição:" rendered="#{cc.attrs.usuario eq 'aluno'}" style="margin-left: 10px"/>
+                        <h:panelGroup rendered="#{cc.attrs.usuario eq 'aluno'}">
+                            <p:calendar id="data_ingresso" value="#{cc.attrs.object.dataIngressoInst}" rendered="#{cc.attrs.fullaccess}"
+                                        locale="pt_BR" showButtonPanel="true" navigator="true" validator="#{DateValidator.validarData}" required="true"
+                                        requiredMessage="Ocorreu um erro. O campo 'ingresso na instituição' é obrigatório."
+                                        pattern="dd/MM/yyyy"
+                                        onSelectUpdate="notasAluno" selectListener="#{AlunoController.ajustarNotas}" 
+                                        size="15"
+                                        style="margin-left: 10px"/>
+
+                            <h:outputText value="#{cc.attrs.object.dataIngressoInst}" rendered="#{not cc.attrs.fullaccess}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </h:panelGroup>
+
+                <ui:remove><!-- Celular: campo comum a todos os petianos(tutores e alunos) --></ui:remove>
+                <h:outputText value="Celular:" rendered="#{((cc.attrs.usuario eq 'aluno') or (cc.attrs.usuario eq 'tutor'))}"/>
+                <h:panelGroup id="celular_ingresso_pet">
+                    <h:panelGrid columns="3">
+                        <p:inputMask id="celular" value="#{cc.attrs.object.celular}" required="false" mask="(99)9999-9999"
+                                     rendered="#{((cc.attrs.usuario eq 'aluno') or (cc.attrs.usuario eq 'tutor'))}" size="15"/>
+
+                        <ui:remove><!-- Data de ingresso no PET: campo comum a todos os petianos (tutores e alunos) --></ui:remove>
+                        <h:outputText value="* Ingresso no PET:" rendered="#{(cc.attrs.usuario eq 'aluno') or (cc.attrs.usuario eq 'tutor')}" style="margin-left: 10px;"/>
+                        <h:panelGroup rendered="#{(cc.attrs.usuario eq 'aluno') or (cc.attrs.usuario eq 'tutor')}">
+                            <p:calendar id="data_inicio" value="#{cc.attrs.object.dataIngressoPet}" rendered="#{cc.attrs.fullaccess}"
+                                        locale="pt_BR" showButtonPanel="true" navigator="true" validator="#{DateValidator.validarData}" required="true"
+                                        validatorMessage="Ocorreu um erro. A data de ingresso no PET não pode ser menor que a data de ingresso na instituição."
+                                        requiredMessage="Ocorreu um erro. O campo 'ingresso no PET' é obrigatório."
+                                        size="15"
+                                        style="margin-left: 48px;">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:calendar>
+                            <h:outputText value="#{cc.attrs.object.dataIngressoPet}" rendered="#{not cc.attrs.fullaccess}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </h:panelGroup>
+
+
+                <ui:remove><!-- Data de saída do PET: campo comum a todos os petianos (tutores e alunos) --></ui:remove>
+                <h:outputText value="Saída do PET:"
+                              rendered="#{((cc.attrs.usuario eq 'aluno') or (cc.attrs.usuario eq 'tutor')) and (cc.attrs.object.id gt 0) and cc.attrs.fullaccess}" />
+                <p:calendar id="data_fim" value="#{cc.attrs.object.dataSaidaPet}"
+                            locale="pt_BR" showButtonPanel="true" navigator="true" required="false" validator="#{DateValidator.validarData}"
+                            validatorMessage="Ocorreu um erro. A data de saída no PET não pode ser menor que a data de ingresso no grupo."
+                            rendered="#{((cc.attrs.usuario eq 'aluno') or (cc.attrs.usuario eq 'tutor')) and (cc.attrs.object.id gt 0) and cc.attrs.fullaccess}"
+                            onSelectUpdate="form:botoes" selectListener="#{AlunoController.dataSelecionada}"
+                            size="15"
+                            style="margin-left: 2px">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </p:calendar>
+
+                <ui:remove><!-- Bolsista: campo em comum a todos os alunos --></ui:remove>
+                <h:outputText value="Bolsista:" rendered="#{cc.attrs.usuario eq 'aluno'}" />
+                <h:panelGroup rendered="#{cc.attrs.usuario eq 'aluno'}">
+                    <h:selectOneRadio id="bolsista" value="#{cc.attrs.object.bolsista}" required="true" rendered="#{cc.attrs.fullaccess}" >
+                        <f:selectItem itemLabel="Sim" itemValue="true" />
+                        <f:selectItem itemLabel="Não" itemValue="false" />
+                    </h:selectOneRadio>
+                    <h:outputText value="Sim" rendered="#{not cc.attrs.fullaccess and cc.attrs.object.bolsista}" />
+                    <h:outputText value="Não" rendered="#{not cc.attrs.fullaccess and not cc.attrs.object.bolsista}" />
+                </h:panelGroup>
+
+                <ui:remove><!-- Período: campo em comum a todos os alunos --></ui:remove>
+                <h:outputText value="Período:" rendered="#{cc.attrs.usuario eq 'aluno'}" />
+                <h:panelGroup rendered="#{cc.attrs.usuario eq 'aluno'}">
+                    <h:panelGroup rendered="#{cc.attrs.fullaccess}">
+                        <h:inputText id="periodo" value="#{cc.attrs.object.periodo}" required="true"
+                                     requiredMessage="Ocorreu um erro. O campo 'período' é obrigatório."
+                                     maxlength="2" styleClass="input form_tabela"
+                                     style="width:30px; float: left" onkeypress="return numbersonly(this, event)" />
+
+                        <div style="margin-left:10px; width: 9px; float:left">
+                            <!-- os ids no jsf são montados na forma "id do namingContainer: id do componente",
+                                 por isso o uso de "component.namingContainer.clientId" ao passar o parâmetro na
+                                 função chamada pelo evento onclick na imagem abaixo -->
+                            <img src="imgs_layout/aumentar.gif" width="9px" height="11px" alt="aumentar"
+                                 onmouseover="this.src='imgs_layout/aumentar_hover.gif'"
+                                 onmouseout="this.src='imgs_layout/aumentar.gif'"
+                                 onclick="numericoAumentar('#{component.namingContainer.clientId}' + ':periodo', 99)"
+                                 style="cursor: pointer" />
+                            <img src="imgs_layout/diminuir.gif" width="9px" height="11px" alt="diminuir"
+                                 onmouseover="this.src='imgs_layout/diminuir_hover.gif'"
+                                 onmouseout="this.src='imgs_layout/diminuir.gif'"
+                                 onclick="numericoDiminuir('#{component.namingContainer.clientId}' + ':periodo', 1)"
+                                 style="cursor: pointer" />
+                        </div>
+                        <h:outputText value="* Preencher com o último período curricular efetivamente concluído." 
+                                      style="margin-left: 10px; margin-right: -10px; font-size:10px" />
+                    </h:panelGroup >
+                    <h:outputText value="#{cc.attrs.object.periodo}" rendered="#{not cc.attrs.fullaccess}" />
+                </h:panelGroup>
+                <h:outputText value="CRA Geral:" rendered="#{cc.attrs.usuario eq 'aluno'}"/>
+
+                <h:panelGroup >
+                    <h:inputText id="craGeral" value="#{cc.attrs.object.craGeral}"
+                                 rendered="#{(cc.attrs.usuario eq 'aluno') and (cc.attrs.fullaccess) }" styleClass="input form_tabela"
+                                 style="width:50px; float: left" />
+
+                    <h:outputText value="#{cc.attrs.object.craGeral}" rendered="#{(cc.attrs.usuario eq 'aluno') and (not cc.attrs.fullaccess)}" />
+                </h:panelGroup>
+            </h:panelGrid>
+
+            <ui:remove><!-- Notas: campo em comum a todos os alunos, caso a operação seja edição --></ui:remove>
+
+            <p:panel id="notasAluno" header="#{(session.getAttribute('nivelUsuario') eq 3) ? 'Minhas notas' : 'Notas do aluno'}" toggleable="true"
+                     closable="false" toggleSpeed="500" widgetVar="panel" style="margin-top:30px; margin-bottom:15px" collapsed="true"
+                     rendered="#{cc.attrs.usuario eq 'aluno' and cc.attrs.object.id gt 0}">
+                <div align="center" style="text-align:center; margin-top: 20px; margin-bottom:18px">
+                    <h:panelGroup rendered="#{not empty AlunoController.anoTreeMap and cc.attrs.fullaccess}">
+                        <span>Ano:</span>
+                        <h:selectOneMenu id="selectAno" value="#{AlunoController.iAno}" style="width:90px; margin-left:10px"
+                                         styleClass="input form_select">
+                            <f:selectItems value="#{AlunoController.anoTreeMap}" />
+                            <p:ajax update="selectSemestre" />
+                        </h:selectOneMenu>
+                        <h:panelGroup rendered="#{not empty AlunoController.semestreTreeMap and cc.attrs.fullaccess}">
+                            <span style="margin-left:15px">Semestre:</span>
+                            <h:selectOneMenu id="selectSemestre" value="#{AlunoController.semestreNota}" style="width:110px; margin-left:10px"
+                                             styleClass="input form_select">
+                                <f:selectItems value="#{AlunoController.semestreTreeMap}" />
+                            </h:selectOneMenu>
+                        </h:panelGroup>
+                        <span style="margin-left:15px">Valor:</span>
+                        <h:inputText value="#{AlunoController.valorNota}"  style="width:50px; margin-left:10px" styleClass="input form_tabela"
+                                     onkeypress="return numbersnota(this, event)" onchange="valorMaximo(this, 100)" />
+                        <p:commandButton image="ui-icon ui-icon-plus" style="margin-left: 25px" action="#{AlunoController.adicionarNota}"
+                                         update="notasAluno" alt="Adicionar nota" title="Adicionar nota" rendered="#{cc.attrs.fullaccess}">
+                        </p:commandButton>
+                    </h:panelGroup>
+                    <h:outputText value="Nenhuma nota cadastrada" rendered="#{not cc.attrs.fullaccess and (empty AlunoController.notas)}" />
+                </div>
+
+                <p:dataTable id="tabelaNotas" var="nota" value="#{AlunoController.notas}"
+                             style="margin-top:30px; width: 512px; margin-left: 60px"
+                             rendered="#{not empty AlunoController.notas}">
+
+                    <p:column headerText="Ano" style="width:150px">
+                        <h:outputText value="#{nota.ano}" />
+                    </p:column>
+
+                    <p:column headerText="Semestre" rendered="#{not AlunoController.anual}" style="width:150px">
+                        <h:outputText value="1º Semestre" rendered="#{nota.semestre eq 1}"/>
+                        <h:outputText value="2º Semestre" rendered="#{nota.semestre eq 2}"/>
+                    </p:column>
+
+                    <p:column headerText="Valor" style="width:150px">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{nota.valor}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <h:inputText value="#{nota.valor}" style="width:100%"
+                                             onkeypress="return numbersnota(this, event)"
+                                             onchange="valorMaximo(this, 100)" />
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Editar" rendered="#{cc.attrs.fullaccess}">
+                        <p:rowEditor />
+                    </p:column>
+                </p:dataTable>
+
+                <h:panelGroup layout="block" style="margin-top: 10px" rendered="#{not empty AlunoController.notas and cc.attrs.fullaccess }">
+                    <p align="center" style="font-size:10px">* Nenhuma alteração será salva até que o botão 'salvar' seja acionado.</p>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" rendered="#{not empty AlunoController.notas}"
+                              style="height:21px; background-image:url('imgs_layout/grafico.gif'); background-repeat:no-repeat;
+                              padding-left: 35px; padding-top: 5px; margin-top: 35px; margin-bottom: 11px; margin-left: 102px;">
+                    <p:commandLink value="Clique aqui para ver um gráfico comparativo com as notas do aluno"
+                                   action="#{AlunoController.atualizarGrafico}" oncomplete="grafico_notas.show()" update="grafico" />
+                </h:panelGroup>
+
+                <p:dialog header="Exibindo notas de #{AlunoController.usuario.nome}" widgetVar="grafico_notas" width="679" height="396"
+                          resizable="false" modal="true">
+                    <div style="padding:1px; border-style: solid; border-width: 1px; border-color: #AED0EA">
+                        <script>
+                        var chartStyle = {
+           padding:20,
+           legend: {
+                display:"right",
+                spacing:10
+           }
+}
+                        </script>                     
+                        <p:lineChart id="grafico" maxY="100" value="#{AlunoController.grafico}" var="grafico" width="650" 
+                                     xfield="#{grafico.periodo}" style="" >
+                            <p:chartSeries label="Nota do aluno" value="#{grafico.valor}" />
+                            <p:chartSeries label="Média do grupo" value="#{grafico.mediaGrupo}" />
+                        </p:lineChart>
+                    </div>
+                </p:dialog>
+            </p:panel>
+
+            <ui:remove><!-- Anotações referentes ao aluno selecionado para edição--></ui:remove>
+
+            <p:panel id="anotacoesAluno" collapsed="true" header="Anotações" 
+                     rendered="#{cc.attrs.usuario eq 'aluno' and cc.attrs.object.id gt 0 and (session.getAttribute('nivelUsuario') eq 2)}"
+                     toggleable="true" toggleSpeed="500">
+                <h:panelGroup id="gerenciamento_anotacoes">
+                    <p style="margin-top: 30px">
+                        <h:outputText value="Não existem anotações feitas para este aluno." 
+                                      rendered="#{empty AnotacaoController.anotacoes}" />
+                    </p>
+
+                    <h:panelGroup layout="block" styleClass="inserir" >
+                        <p:commandLink value="Criar anotação" 
+                                       update="display_insert" oncomplete="insert.show()"/>
+                    </h:panelGroup>
+
+
+                    <p:dataTable id ="anotacoes" var="a" value="#{AnotacaoController.anotacoes}" 
+                                 paginator="true" rows="10" 
+                                 rendered="#{not empty AnotacaoController.anotacoes}"
+                                 selectionMode="single"
+                                 selection="#{AnotacaoController.anotacao}"
+                                 onRowSelectUpdate="anot_buttons display_view"
+                                 onRowUnselectUpdate="anot_buttons form4:display_view"
+                                 rowUnselectListener="#{AnotacaoController.onRowUnselect}"
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Data" />
+                            </f:facet>
+                            <h:outputText value="#{a.data}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Avaliação" />
+                            </f:facet>
+                            <div style="text-align:center">
+                                <h:graphicImage alt="Positiva" title="Positiva" url="imgs_layout/thumbsup.gif" rendered="#{a.carater}" />
+                                <h:graphicImage alt="Negativa" title="Negativa" url="imgs_layout/thumbsdown.gif" rendered="#{not a.carater}" />
+                            </div>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="texto" />
+                            </f:facet>
+                            <h:outputText value="#{a.descricao}" />
+                        </p:column>
+                    </p:dataTable>
+
+                   
+
+                    <h:panelGrid id="anot_buttons" columns="3" style="margin-top: 10px" rendered="#{not empty AnotacaoController.anotacoes}">
+                        <p:commandButton widgetVar = "delete_anot" value = "Excluir" 
+                                         disabled="#{empty AnotacaoController.anotacao.texto}"
+                                         onclick="confirmation.show()"/>
+
+                        <p:commandButton widgetVar = "edit_anot" value="Editar" 
+                                         disabled="#{empty AnotacaoController.anotacao.texto}"
+                                         onclick="view.show()"
+                                         update="display_view"/>
+                    </h:panelGrid>
+
+                </h:panelGroup>
+            </p:panel>
+        </composite:implementation>
+    </h:body>
+</html>

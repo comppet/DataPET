@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Formulario de inserção de grupo</title>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="object" required="true" />
+        </composite:interface>
+        <composite:implementation>
+            <!-- Contornando bug estranho do id virar null -->
+            <h:inputHidden value="#{cc.attrs.managedBean.grupo.id}" required="false" rendered="#{cc.attrs.input}" />
+
+            <h:panelGrid style="margin-left:-9px" cellpadding="9px" columns="2">
+               * Nome:
+                <h:inputText id="nomeCurso" value="#{cc.attrs.object.nome}" required="true" maxlength="80" styleClass="input form_tabela"
+                             requiredMessage="Ocorreu um erro. O campo 'nome' é obrigatório."
+                             validator="#{GrupoController.validarCurso}"/>
+                Formação:
+                <h:selectOneMenu id="formacao" value="#{cc.attrs.object.formacao}" styleClass="input form_select" required="true">
+                    <f:selectItem itemLabel="Bacharelado" itemValue="0"/>
+                    <f:selectItem itemLabel="Licenciatura" itemValue="1"/>
+                    <f:selectItem itemLabel="Bacharelado e Licenciatura" itemValue="2"/>
+                </h:selectOneMenu>
+                Período:
+                <h:selectOneMenu id="periodo" value="#{cc.attrs.object.periodo}" styleClass="input form_select" required="true">
+                    <f:selectItem itemLabel="Semestral" itemValue="1"/>
+                    <f:selectItem itemLabel="Anual" itemValue="2"/>
+                </h:selectOneMenu>
+            </h:panelGrid>
+        </composite:implementation>
+    </h:body>
+</html>

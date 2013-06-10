@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é: -->
+            <ui:param name="titulo" value="Busca de atividades" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_busca_relatorio.gif" width="65" height="60" alt="Busca por atividades" class="titulo_img" />
+                    <h1>Buscar atividades</h1>
+                    <span>Estabeleça os parâmetros da busca e gere um relatório com os resultados</span>
+                </div>
+                <h:form>
+                    <h2>Selecione os grupos:</h2>
+                    <p style="margin-left:3px">
+                        <h:selectBooleanCheckbox
+                                onchange="inverterGrupoCheckbox(this, '#{component.namingContainer.clientId}:grupos', #{BuscaController.gruposCheckboxes.size()})"
+                        />
+                        Todos
+                    </p>
+                    <h:selectManyCheckbox id="grupos" value="#{BuscaController.gruposSelecionados}" required="true" layout="pageDirection"
+                                          requiredMessage="Selecione ao menos um grupo.">
+                        <f:selectItems value="#{BuscaController.gruposCheckboxes}" />
+                    </h:selectManyCheckbox>
+                    
+                    <h2 style="margin-top: 40px">Selecione o tipo das atividades:</h2>
+                    <h:selectManyCheckbox value="#{BuscaController.tiposSelecionados}" required="true"
+                                          requiredMessage="Selecione ao menos um tipo de atividade.">
+                        <f:selectItem itemLabel="Ensino" itemValue="ensino" />
+                        <f:selectItem itemLabel="Extensão" itemValue="extensao" />
+                        <f:selectItem itemLabel="Pesquisa" itemValue="pesquisa" />
+                    </h:selectManyCheckbox>
+                    
+                    <h2 style="margin-top: 40px">Atividades realizadas entre:</h2>
+                    <p>
+                        <p:calendar id="data_inicio" value="#{BuscaController.inicioRelatorio}" 
+                                validator="#{DateValidator.validarData}" style="margin-right:10px"
+                                locale="pt_BR" showButtonPanel="true" navigator="true" required="true"
+                                requiredMessage="Data de início do período: este campo é obrigatório.">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:calendar>
+                        e
+                        <p:calendar id="data_fim" value="#{BuscaController.fimRelatorio}"
+                                    validator="#{DateValidator.validarData}" style="margin-left:10px"
+                                    locale="pt_BR" showButtonPanel="true" navigator="true" required="true"
+                                    requiredMessage="Data de fim do período: este campo é obrigatório.">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:calendar>
+                    </p>
+                    
+                    <div style="margin-top:40px">                    
+                        <p:commandButton value="Gerar relatório em RTF (editável)" ajax="false">
+                            <p:fileDownload value="#{BuscaController.relatorioRTF}" />
+                        </p:commandButton>
+                        <p:commandButton value="Gerar relatório em PDF" ajax="false" style="margin-left: 20px">
+                            <p:fileDownload value="#{BuscaController.relatorioPDF}" />
+                        </p:commandButton>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

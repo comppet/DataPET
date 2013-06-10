@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:comp="http://java.sun.com/jsf/composite/comp"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "página do tutor" -->
+            <ui:param name="titulo" value="permisão negada" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div style="width:100%; text-align: center; margin-top: 50px" >
+                    <img src="imgs_layout/404.png" alt="Página não encontrada" />
+                    <p class="erro" style="font-size: 18px; font-weight: bold; margin-top: 40px">PÁGINA NÃO ENCONTRADA</p>
+                </div>
+                <div align="center" style="width:500px; margin-left: auto; margin-right: auto; margin-top:20px">
+                    <p>
+                        Desculpe-nos, até que tentatamos, mas não foi possível encontrar a página
+                        solicitada. Talvez ela não exista, mas se você tem certeza que ela deveria
+                        estar aqui... bem... talvez ela tenha fugido! Informe-nos, através do link
+                        "<h:link outcome="fale_conosco" value="fale conosco" />" que organizaremos 
+                        uma busca.
+                    </p>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

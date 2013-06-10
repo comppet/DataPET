@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cla_busca" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset1"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="grupos" class="java.lang.String">
+		<defaultValueExpression><![CDATA["grupo.id> 0"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ensino" class="java.lang.Boolean">
+		<defaultValueExpression><![CDATA[true]]></defaultValueExpression>
+	</parameter>
+	<parameter name="extensao" class="java.lang.Boolean">
+		<defaultValueExpression><![CDATA[true]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pesquisa" class="java.lang.Boolean">
+		<defaultValueExpression><![CDATA[true]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data_inicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA["2011-01-01"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data_fim" class="java.lang.String">
+		<defaultValueExpression><![CDATA["2011-12-31"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_FILE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["atividade.jasper"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select sigla, grupo.id from grupo where ($P!{grupos}) and (
+($P!{ensino} and exists (select a.id from ensino as ta, atividade as a where id_grupo = grupo.id and ta.id = a.id and ((datainicio is null and datafim is null) or ((datainicio >= '$P!{data_inicio}' or (datainicio is null and datafim >= '$P!{data_inicio}')) and (datafim <= '$P!{data_fim}' or (datafim is null and datainicio <= '$P!{data_fim}')))))) or
+($P!{extensao} and exists (select a.id from extensao as ta, atividade as a where id_grupo = grupo.id and ta.id = a.id and ((datainicio is null and datafim is null) or ((datainicio >= '$P!{data_inicio}' or (datainicio is null and datafim >= '$P!{data_inicio}')) and (datafim <= '$P!{data_fim}' or (datafim is null and datainicio <= '$P!{data_fim}')))))) or
+($P!{pesquisa} and exists (select a.id from pesquisa as ta, atividade as a where id_grupo = grupo.id and ta.id = a.id and ((datainicio is null and datafim is null) or ((datainicio >= '$P!{data_inicio}' or (datainicio is null and datafim >= '$P!{data_inicio}')) and (datafim <= '$P!{data_fim}' or (datafim is null and datainicio <= '$P!{data_fim}'))))))
+) order by sigla;]]>
+	</queryString>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="id" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="15" width="555" height="36"/>
+				<textElement textAlignment="Center">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de atividades]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="51" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Gerado em " + (new SimpleDateFormat("dd/MM/yyyy")).format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="60">
+			<textField>
+				<reportElement x="0" y="22" width="555" height="24"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Grupo " + $F{sigla}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="62">
+			<printWhenExpression><![CDATA[$P{ensino}]]></printWhenExpression>
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="42"/>
+				<subreportParameter name="query">
+					<subreportParameterExpression><![CDATA["select a.id, titulo, parceiros, descricao, justificativa, datainicio, datafim, comentario, resultadosesperados, resultadosalcancados, coletiva, publicoalvo, nome from atividade as a, atividadepublica as ap, ensino as e, natureza as n where a.id_grupo = " + $F{id} + " and e.id = ap.id and ap.id = a.id and id_natureza = n.id and ((datainicio is null and datafim is null) or ((datainicio >= '" + $P{data_inicio} + "' or (datainicio is null and datafim >= '" + $P{data_inicio} + "')) and (datafim <= '" + $P{data_fim} + "' or (datafim is null and datainicio <= '" + $P{data_fim} + "')))) order by titulo"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tipo_atividade">
+					<subreportParameterExpression><![CDATA["ensino"]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_FILE}]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="62" splitType="Prevent">
+			<printWhenExpression><![CDATA[$P{extensao}]]></printWhenExpression>
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="42"/>
+				<subreportParameter name="query">
+					<subreportParameterExpression><![CDATA["select a.id, titulo, parceiros, descricao, justificativa, datainicio, datafim, comentario, resultadosesperados, resultadosalcancados, coletiva, publicoalvo, nome from atividade as a, atividadepublica as ap, extensao as e, natureza as n where a.id_grupo = " + $F{id} + " and e.id = ap.id and ap.id = a.id and id_natureza = n.id and ((datainicio is null and datafim is null) or ((datainicio >= '" + $P{data_inicio} + "' or (datainicio is null and datafim >= '" + $P{data_inicio} + "')) and (datafim <= '" + $P{data_fim} + "' or (datafim is null and datainicio <= '" + $P{data_fim} + "')))) order by titulo"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tipo_atividade">
+					<subreportParameterExpression><![CDATA["extensão"]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_FILE}]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="62" splitType="Prevent">
+			<printWhenExpression><![CDATA[$P{pesquisa}]]></printWhenExpression>
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="42"/>
+				<subreportParameter name="query">
+					<subreportParameterExpression><![CDATA["select atividade.id, titulo, parceiros, descricao, justificativa, datainicio, datafim, comentario, resultadosesperados, resultadosalcancados, coletiva, 'pog' as publicoalvo, 'pog' as nome from atividade, pesquisa where id_grupo = " + $F{id} + " and pesquisa.id = atividade.id and ((datainicio is null and datafim is null) or ((datainicio >= '" + $P{data_inicio} + "' or (datainicio is null and datafim >= '" + $P{data_inicio} + "')) and (datafim <= '" + $P{data_fim} + "' or (datafim is null and datainicio <= '" + $P{data_fim} + "')))) order by titulo"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tipo_atividade">
+					<subreportParameterExpression><![CDATA["pesquisa"]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_FILE}]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="24">
+			<break>
+				<reportElement x="0" y="9" width="100" height="1"/>
+			</break>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="266" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["DataPET - Relatório de atividades - " + $F{sigla}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="2" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="2.25" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

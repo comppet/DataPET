@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <ui:composition>
+            <a href="cla.xhtml"><img src="imgs_layout/titulo_menu_cla.gif" alt="Ola tutor" width="96" height="20" class="titulo_painel" /></a>
+            <div id="dados" class="texto_verde">
+                Institução: <h:outputText value ="#{session.getAttribute('instituicao').sigla}" /><br />
+                Grupo: <h:outputText value ="CLA" /><br />
+            </div>            
+            <a href="cla_busca.xhtml"><img src="imgs_layout/titulo_menu_atividades.gif" alt="Atividades" width="104" height="20" class="titulo_painel" /></a><br/>
+                        <a href="cla_gerenciamento.xhtml"><img src="imgs_layout/titulo_membros.gif" alt="Membros CLA" width="130" height="20" class="titulo_painel" /></a>
+            <a href="grupo.xhtml"><img src="imgs_layout/titulo_menu_grupospet.gif" alt="Grupos PET" width="110" height="20" class="titulo_painel" /></a>
+        </ui:composition>
+    </h:body>
+</html>

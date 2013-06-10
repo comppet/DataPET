@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "página inicial" -->
+            <ui:param name="titulo" value="página inicial" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_novo_datapet.gif" width="65" height="60" alt="" class="titulo_img" />
+                    <h1>DataPET 3.0</h1>
+                    <span>Conheça a nova versão do DataPET!</span>
+                </div>
+                <p align="justify">
+                    Bem vindo ao DataPET 3.0 RC1! Nesta versão contamos com um visual inteiramente novo e tecnologias de 
+                    interface com usuário mais modernas para facilitar a interação do usuário com o sistema. O software foi
+                    inteiramente refeito seguindo a arquitetura MVC e conta com várias novas funcionalidades, como o sistema
+                    de anotações e os gráficos de notas.
+                </p>
+                <p align="justify">
+                    Nesta nova versão, o DataPET deixa de ser uma simples ferramenta para a geração de relatórios para se tornar
+                    um sistema de gerenciamento de grupos PET. O sistema se propõe a ser o braço direito do tutor na avaliação
+                    das atividades de seu grupo e dos petianos que a realizam. É com esta nova vertente que o DataPET segue
+                    desta versão em diante, e com isso esperamos a utilização do sistema por toda a Universidade Federal de
+                    Uberlândia e posteriormente para as demais universidades do Brasil.
+                </p>
+                <p align="justify">
+                    Acesse "<h:link outcome="sobre_datapet" value="Sobre o DataPET" />" para saber mais!
+                </p>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

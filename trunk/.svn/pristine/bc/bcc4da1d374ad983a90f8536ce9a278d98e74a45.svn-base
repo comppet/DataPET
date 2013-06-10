@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <ui:composition>
+            <a href="tutor.xhtml"><img src="imgs_layout/titulo_menu_tutor.gif" alt="Ola tutor" width="96" height="20" class="titulo_painel" /></a>
+            <div id="dados" class="texto_verde">
+                Institução: <h:outputText value ="#{session.getAttribute('instituicao').sigla}" /><br />
+                Grupo: <h:outputText value ="#{session.getAttribute('grupo').sigla}" /><br />
+                Usuário: <h:outputText value ="#{session.getAttribute('usuario').nomeCurto}" />
+            </div>
+            <a href="atividades.xhtml"><img src="imgs_layout/titulo_menu_atividades.gif" alt="Atividades" width="104" height="20" class="titulo_painel" /></a><br/><br/>
+            <a href="petianos_contatos.xhtml"><img src="imgs_layout/titulo_menu_petianos.gif" alt="Petianos" width="90" height="20" class="titulo_painel" /></a><br/><br/>
+            <a href="relatorio.xhtml"><img src="imgs_layout/titulo_menu_relatorios.gif" width="104" height="20" alt="Relatorios" class="titulo_painel" /></a><br/><br/>
+            <a href="grupos_contatos.xhtml"><img src="imgs_layout/titulo_menu_grupospet.gif" alt="Grupos PET" width="110" height="20" class="titulo_painel" /></a><br/><br/>
+        </ui:composition>
+    </h:body>
+</html>

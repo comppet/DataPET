@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+    <lifecycle>
+        <phase-listener>Controller.Autenticacao</phase-listener>
+    </lifecycle>
+
+    <!-- Casos de navegação -->
+
+    <navigation-rule>
+        <from-view-id>/grupo_edicao.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>sucesso</from-outcome>
+            <to-view-id>/grupo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/tutor.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>sucesso</from-outcome>
+            <to-view-id>/tutor.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pesquisa.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>visualizar</from-outcome>
+            <to-view-id>/pesquisa_visualizacao.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pesquisa.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editar</from-outcome>
+            <to-view-id>/pesquisa_edicao.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/ensino.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>visualizar</from-outcome>
+            <to-view-id>/ensino_visualizacao.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/ensino.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editar</from-outcome>
+            <to-view-id>/ensino_edicao.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/extensao.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>visualizar</from-outcome>
+            <to-view-id>/extensao_visualizacao.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/extensao.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editar</from-outcome>
+            <to-view-id>/extensao_edicao.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/petianos_contatos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>gerenciar</from-outcome>
+            <to-view-id>/petiano_gerenciamento.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>

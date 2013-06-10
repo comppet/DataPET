@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="object" required="true" />
+            <composite:attribute name="fullaccess" type="java.lang.Boolean" required="false" default="#{false}" />
+        </composite:interface>
+        <composite:implementation>
+             <!-- Contornando bug estranho do id virar null. Isto é uma falha de segurança, através do firebug é possível alterar petianos de outros grupos!!! -->
+             <h:inputHidden value="#{cc.attrs.object.id}" required="false" rendered="#{cc.attrs.input}" />
+
+             <h:panelGrid columns="2" cellpadding="9" style="margin-left: -9px">
+
+                <h:outputText value="*Sigla:" />                
+                <h:inputText id="sigla" value="#{cc.attrs.object.sigla}" required="true" maxlength="13"
+                             requiredMessage="Ocorreu um erro. O campo 'Sigla' é obrigatório."
+                             styleClass="input form_tabela" rendered="#{cc.attrs.fullaccess}"
+                             validator="#{InstituicaoController.validarSiglaInst}"/>
+                <h:outputText value="#{cc.attrs.object.sigla}" rendered="#{not cc.attrs.fullaccess}" />
+
+                <h:outputText value="*Nome:" />
+                <h:inputText id="nome" value="#{cc.attrs.object.nome}" required="true" maxlength="80"
+                             requiredMessage="Ocorreu um erro. O campo 'Nome' é obrigatório."
+                             styleClass="input form_tabela" rendered="#{cc.attrs.fullaccess}"
+                             validator="#{InstituicaoController.validarNomeInst}"/>
+                <h:outputText value="#{cc.attrs.object.nome}" rendered="#{not cc.attrs.fullaccess}" />
+
+                <h:outputText value="*Pró Reitor de Graduação:" />
+                <h:inputText id="proreitorgrad" value="#{cc.attrs.object.proReitor}" required="true" maxlength="80"
+                             requiredMessage="Ocorreu um erro. O campo 'Pró Reitor de Graduação' é obrigatório."
+                             styleClass="input form_tabela" />
+
+                <h:outputText value="*E-mail do Pró Reitor de Graduação:" />
+                 <h:inputText id="email" value="#{cc.attrs.object.emailProReitor}" required="false" maxlength="254" styleClass="input form_tabela"
+                              validator="#{EmailValidator.validarEmail}" validatorMessage="O formato do e-mail do pró-reitor de graduação está incorreto." />
+
+             </h:panelGrid>
+        </composite:implementation>
+    </h:body>
+</html>

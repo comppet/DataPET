@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "página inicial" -->
+            <ui:param name="titulo" value="sobre o dataPET" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <div class="titulo">
+                    <img src="imgs_layout/img_datapet.gif" width="65" height="60" alt="" class="titulo_img" />
+                    <h1>Sobre o DataPET</h1>
+                    <span>Leia as informações sobre a versão RC1 do DataPET 3.0</span>
+                </div>
+                <p align="justify">
+                    O DataPET é um sistema de código aberto (open source) que automatiza a geração do relatório de atividades de que
+                    um grupo PET tem que enviar à SESU/MEC ao final de cada ano letivo. Este vem sendo desenvolvido pelo CompPET
+                    (grupo PET do curso de Bacharelado em Ciência da.Computação, da Universidade Federal de Uberlândia) desde 2007 e
+                    pode ser encontrado no Google Code através do endreço:
+                    <a href="http://code.google.com/p/datapet/" target="_blank">code.google.com/p/datapet</a>.
+                </p>
+                <p align="justify">
+                    A terceira versão do DataPET é uma refabricação do software. O sistema foi completamente refeito utilizando
+                    novas tecnologias, um layout moderno e uma arquitetura adequada para o desenvolvimento e manutenção de sistemas
+                    WEB (MVC).
+                </p>
+                <p align="justify">
+                    O DataPET 3.0, além de contar com todas as funcionalidades do 2.1, traz algumas novidades como:
+                </p>
+                <ul style="text-align: justify">
+                    <li>
+                        Anotações: Um tutor agora pode escrever anotações sobre os alunos de seu grupo. Uma anotação pode ser positiva ou negativa
+                        e para visualiza-lá basta selecionar o aluno a qual ela pertence numa lista com todos os alunos do grupo.
+                    </li>
+                    <li>
+                        Atividade coletiva: O MEC pede para os grupos PET ressaltar em seus relatórios as atividades de caráter coletivo do grupo,
+                        para satisfazer essa necessidade, ao adicionar uma atividade ao sistema, deve-se informar se ela é coletiva ou não.
+                    </li>
+                    <li>
+                        Diferentes tipos de grupos: Hoje, um grupo PET pode ser de três tipos diferentes: SESU, institucional e SECAD (conexões e
+                        saberes. Para acolher todos os grupos, o novo DataPET agora pergunta ao CLA qual é o tipo do grupo que ele está inserindo
+                        antes de cadastrá-lo no sistema.
+                    </li>
+                    <li>
+                        Notas dos alunos: Para guiar bem seus alunos um tutor precisa ter uma boa noção das notas que eles estão recebendo no curso.
+                        Para melhor acompanhar o rendimento do aluno, o DataPET 3.0 conta com um sistema completamente novo de cadastramento de notas.
+                        Agora, o tutor pode inserir todas as notas do aluno, desde sua entrada na faculdade até o período letivo corrente, e visualizá-
+                        las através de um gráfico comparativo que envolve todos os períodos letivos cursados pelo aluno e a média de notas do grupo no
+                        mesmo período.
+                    </li>
+                </ul>
+                
+                <p><b>Problemas Conhecidos:</b></p>
+                <p>Os problemas conhecidos estão descritos em <a target="_black" href="http://code.google.com/p/datapet/issues/list">http://code.google.com/p/datapet/issues/list</a>.</p>
+                <p>
+                    Por favor, caso algum problema diferente dos listados acima seja encontrado, informe à equipe de desenvolvimento através de 
+                    <a target="_blank" href="http://code.google.com/p/datapet/issues/entry">nossa página no Google Code</a>. Caso você não possua conta no 
+                    Google, por favor, utilize o link "<h:link outcome="fale_conosco" value="Fale conosco" />".
+                </p>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <title>Formulario de inserção de grupo</title>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="object" required="true" />
+            <composite:attribute name="fullaccess" type="java.lang.Boolean" required="false" default="#{false}" />
+        </composite:interface>
+        <composite:implementation>
+            <!-- Contornando bug estranho do id virar null -->
+            <h:inputHidden value="#{cc.attrs.object.id}" required="false" rendered="#{cc.attrs.input}" />
+            
+            <h:panelGrid style="margin-left:-9px" cellpadding="9px" columns="2">
+                * Nome/sigla:
+                <h:inputText id="sigla" value="#{cc.attrs.object.sigla}" required="true" maxlength="40" styleClass="input form_tabela"
+                             requiredMessage="Ocorreu um erro. O campo 'nome/sigla' é obrigatório." rendered="#{cc.attrs.fullaccess}"
+                             validator="#{GrupoController.validarGrupo}"/>
+                <h:outputText value="#{cc.attrs.object.sigla}" rendered="#{not cc.attrs.fullaccess}" />
+                
+                Tipo:
+                <h:selectOneMenu id="tipo" value="#{cc.attrs.object.tipo}" styleClass="input form_select" required="true"
+                                 rendered="#{cc.attrs.fullaccess}">
+                    <f:selectItem itemLabel="SESU" itemValue="0"/>
+                    <f:selectItem itemLabel="Institucional" itemValue="1"/>
+                    <f:selectItem itemLabel="SECAD" itemValue="2"/>
+                </h:selectOneMenu>
+                <h:outputText value="SESU" rendered="#{not cc.attrs.fullaccess and (cc.attrs.object.tipo eq 0)}" />
+                <h:outputText value="Institucional" rendered="#{not cc.attrs.fullaccess and (cc.attrs.object.tipo eq 1)}" />
+                <h:outputText value="SECAD" rendered="#{not cc.attrs.fullaccess and (cc.attrs.object.tipo eq 2)}" />
+                
+                * Data de implantação:
+                <p:calendar id="implantacao" value="#{cc.attrs.object.implantacao}" rendered="#{cc.attrs.fullaccess}"
+                            locale="pt_BR" showButtonPanel="true" navigator="true" required="true"
+                            requiredMessage="Ocorreu um erro. O campo 'data de implantacao' é obrigatório.">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </p:calendar>
+                <h:outputText value="#{cc.attrs.object.implantacao}" rendered="#{not cc.attrs.fullaccess}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:outputText>
+                
+                Site:
+                <h:inputText id="site" value="#{cc.attrs.object.site}" maxlength="100"
+                             styleClass="input form_tabela" />
+
+                Tema:
+                <h:inputText id="tema" value="#{cc.attrs.object.tema}" maxlength="255"
+                             styleClass="input form_tabela" />
+
+                Telefone:
+                <p:inputMask id="telefone" value="#{cc.attrs.object.telefone}" mask="(99)9999-9999" />
+            </h:panelGrid>
+        </composite:implementation>
+    </h:body>
+</html>
